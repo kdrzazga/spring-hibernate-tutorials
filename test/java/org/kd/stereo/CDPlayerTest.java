@@ -18,8 +18,8 @@ public class CDPlayerTest {
     private CDPlayer cdPlayer;
 
     @Test
-    public void cdShouldNotBeNull(){
+    public void cdShouldBeOfKorn(){
         assertNotNull(cdPlayer);
-        assertEquals("Metalika", cdPlayer.getCd().getArtist());
+        assertEquals("Korn", cdPlayer.getCd().getArtist());
     }
 }

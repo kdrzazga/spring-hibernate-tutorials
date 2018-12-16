@@ -19,6 +19,6 @@ public class CDTest {
     @Test
     public void cdShouldNotBeNull(){
         assertNotNull(cd);
-        assertEquals("Metalika", cd.getArtist());
+        assertEquals("Freak on a leash", cd.getTitle());
     }
 }
