@@ -1,9 +1,6 @@
 package org.kd.knights;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-
 
 public class KnightMain {
     public static void main(String[] args) {
