@@ -1,0 +1,21 @@
+package org.kd.spring.knights;
+
+
+import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
+public class BraveKnightTest {
+
+    @Test
+    public void knightShouldEmbarkOnQuest(){
+        Quest mockQuest = mock(Quest.class); //pozona(mockowa) implementacja 1 obiektu classy Quest
+
+
+        BraveKnight knight = new BraveKnight(mockQuest);
+        knight.embarkOnQuest();
+
+        verify(mockQuest).embark();
+    }
+}
