@@ -1,0 +1,8 @@
+*.class
+*.xml
+!pom.xml
+*.iml
+target*
+.idea*
+*.ods
+

@@ -24,9 +24,7 @@ public class UserRepoServiceCLI implements CommandLineRunner {
         log.info("new user created " + user + " with UserRepository.save() method");
         Optional<User> userWithId1 = userRepository.findById(1L);
 
-        if (userWithId1.isPresent()) {
-            log.info("Retrieved user " + userWithId1.get());
-        }
+        userWithId1.ifPresent(user1 -> log.info("Retrieved user " + user1));
 
         log.info("Retrieving all users: ");
         userRepository.findAll().forEach(u -> log.info(u.toString()));

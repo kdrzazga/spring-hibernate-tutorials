@@ -16,16 +16,7 @@ public class User implements Serializable {
 
     private String role;
 
-    public String getName() {
-        return name;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
     protected User(){
-
     }
 
     public User(String name, String role) {
@@ -38,8 +29,17 @@ public class User implements Serializable {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
     @Override
     public String toString() {
         return String.format("User [id=%s, name=%s, role=%s]", id, name, role);
     }
+
 }
