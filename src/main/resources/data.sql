@@ -255,4 +255,7 @@ INSERT INTO funds(shortname, name, units, party_id) VALUES ('LZB', 'La-Z-Boy Inc
 
 INSERT INTO transact(id, party_id, fund_id, units) VALUES (3001, 1025, 2001, 123.44);
 INSERT INTO transact(party_id, fund_id, units) VALUES (1005, 2003, 6633);
-INSERT INTO transact(party_id, fund_id, units) VALUES (1042, 2002, 81);
+INSERT INTO transact(party_id, fund_id, units) VALUES (1009, 2002, 81);
+INSERT INTO transact(party_id, fund_id, units) VALUES (1009, 2002, 8100);
+INSERT INTO transact(party_id, fund_id, units) VALUES (1011, 2019, 8102);
+INSERT INTO transact(party_id, fund_id, units) VALUES (1011, 2002, 8103);

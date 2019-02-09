@@ -1,7 +1,6 @@
 package org.kd.hibernate.tradeapp.entity;
 
 import org.kd.hibernate.tradeapp.service.PartyDaoService;
-import org.kd.hibernate.userapp.service.UserDAOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

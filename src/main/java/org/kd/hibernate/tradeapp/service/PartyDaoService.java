@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -21,8 +20,8 @@ public class PartyDaoService {
         return party.getId();
     }
 
-    public List<Party> get() {
-        Query query = entityManager.createQuery("SELECT id, name, shortname FROM Party");
+    public List<Party> getAllParties() {
+        var query = entityManager.createQuery("SELECT id, name, shortname FROM Party");
 
         return query.getResultList();
     }

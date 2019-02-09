@@ -23,9 +23,9 @@ public class UserDaoServiceCLI implements CommandLineRunner {
         log.info("new user created " + user);
     }
 
-    public UserDAOService getUserDAOService() {
-        return userDAOService;
+
+    public User getUserFromDao(){
+            return userDAOService.getTransactByPrimaryKey(1);
+
     }
-
-
 }

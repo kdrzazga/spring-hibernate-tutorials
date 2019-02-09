@@ -3,13 +3,22 @@ package org.kd.hibernate.tradeapp;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
 public class Application {
 
+    private static ConfigurableApplicationContext context;
+
     public static void main(String[] args) {
-        var context = SpringApplication.run(Application.class, args);
+        context = SpringApplication.run(Application.class, args);
         writeInfo();
+    }
+
+    public static void stop(){
+        context.stop();
+        context.close();
+
     }
 
     private static void writeInfo() {

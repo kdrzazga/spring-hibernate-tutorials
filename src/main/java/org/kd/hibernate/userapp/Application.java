@@ -1,7 +1,6 @@
 package org.kd.hibernate.userapp;
 
 import org.kd.hibernate.userapp.entity.User;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
