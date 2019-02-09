@@ -1,6 +1,5 @@
 package org.kd.spring.knights;
 
-
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
@@ -10,10 +9,9 @@ public class BraveKnightTest {
 
     @Test
     public void knightShouldEmbarkOnQuest(){
-        Quest mockQuest = mock(Quest.class); //pozona(mockowa) implementacja 1 obiektu classy Quest
+        var mockQuest = mock(Quest.class); //pozona(mockowa) implementacja 1 obiektu classy Quest
 
-
-        BraveKnight knight = new BraveKnight(mockQuest);
+        var knight = new BraveKnight(mockQuest);
         knight.embarkOnQuest();
 
         verify(mockQuest).embark();

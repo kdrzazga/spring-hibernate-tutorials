@@ -1,6 +1,6 @@
-package org.kd.hibernate;
+package org.kd.hibernate.userapp;
 
-import org.kd.hibernate.entity.User;
+import org.kd.hibernate.userapp.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UserRepoServiceCLI implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User("Barbara", "Admin");
+        var user = new User("Barbara", "Admin");
         userRepository.save(user);
         log.info("new user created " + user + " with UserRepository.save() method");
         Optional<User> userWithId1 = userRepository.findById(1L);

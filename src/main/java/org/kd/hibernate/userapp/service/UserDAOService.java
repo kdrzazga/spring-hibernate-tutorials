@@ -1,11 +1,12 @@
-package org.kd.hibernate.service;
+package org.kd.hibernate.userapp.service;
 
-import org.kd.hibernate.entity.User;
+import org.kd.hibernate.userapp.entity.User;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -19,4 +20,5 @@ public class UserDAOService {
         entityManager.persist(user);
         return user.getId();
     }
+
 }

@@ -1,6 +1,6 @@
-package org.kd.hibernate;
+package org.kd.hibernate.userapp;
 
-import org.kd.hibernate.entity.User;
+import org.kd.hibernate.userapp.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {

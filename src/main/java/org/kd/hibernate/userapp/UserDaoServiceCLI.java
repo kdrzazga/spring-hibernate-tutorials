@@ -1,7 +1,7 @@
-package org.kd.hibernate;
+package org.kd.hibernate.userapp;
 
-import org.kd.hibernate.entity.User;
-import org.kd.hibernate.service.UserDAOService;
+import org.kd.hibernate.userapp.entity.User;
+import org.kd.hibernate.userapp.service.UserDAOService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,14 @@ public class UserDaoServiceCLI implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User("Jacek", "Admin");
+        var user = new User("Jacek", "Admin");
         long id = userDAOService.insert(user);
         log.info("new user created " + user);
     }
+
+    public UserDAOService getUserDAOService() {
+        return userDAOService;
+    }
+
+
 }

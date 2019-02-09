@@ -12,6 +12,7 @@
         <javax.inject.version>1</javax.inject.version>
 
         <hibernate.version>3.6.10.Final</hibernate.version>
+        <hibernate5.version>5.4.1.Final</hibernate5.version>
         <hsqldb.version>2.2.9</hsqldb.version>
 
         <junit.version>4.12</junit.version>
@@ -22,6 +23,8 @@
         <spring-boot.version>2.0.7.RELEASE</spring-boot.version>
         <spring-boot-starter-data-jpa.version>2.1.1.RELEASE</spring-boot-starter-data-jpa.version>
         <h2.version>1.4.197</h2.version>
+
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <groupId>org.kd</groupId>
@@ -70,10 +73,16 @@
 
         <!--Already included in spring-boot-starter-data-jpa, uncommenting will cause a conflict of versions:
         <dependency>
+            <groupId>org.hibernatewithspring</groupId>
+            <artifactId>hibernatewithspring-core</artifactId>
+            <version>${hibernatewithspring.version}</version>
+        </dependency>-->
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>-->
+            <version>${hibernate5.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
@@ -104,6 +113,11 @@
             <version>${spring-boot.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
@@ -115,6 +129,7 @@
             <version>${spring-boot-test.version}</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>

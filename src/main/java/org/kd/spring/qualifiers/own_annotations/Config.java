@@ -11,7 +11,7 @@ public class Config {
     @Bean
     @Qualifier("nutty")
     public Dessert iceCreamWithNuts(){
-        IceCream2 iceCream = new IceCream2();
+        var iceCream = new IceCream2();
         iceCream.setAddOn(AddOns.NUTS);
         return iceCream;
     }
@@ -19,7 +19,7 @@ public class Config {
     @Bean
     @Creamy
     public Dessert iceCreamWithWhippedCream(){
-        IceCream2 iceCream = new IceCream2();
+        var iceCream = new IceCream2();
         iceCream.setAddOn(AddOns.WHIPPED_CREAM);
         return iceCream;
     }

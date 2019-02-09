@@ -1,4 +1,4 @@
-package org.kd.hibernate.entity;
+package org.kd.hibernate.userapp.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

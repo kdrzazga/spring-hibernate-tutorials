@@ -1,4 +1,4 @@
-package org.kd.hibernate.entity;
+package org.kd.hibernate.tradeapp.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
