@@ -1,14 +1,14 @@
-package org.kd.hibernatewithspring.tradeapp;
+package org.kd.tradeapp;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kd.hibernate.tradeapp.Application;
-import org.kd.hibernate.tradeapp.service.TransactDaoService;
+import org.kd.tradeapp.service.TransactDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @SpringBootTest(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,13 +27,13 @@ public class TransactDaoServiceTest {
     @Test
     public void testRemoveTransactByPrimaryKey() {
         transactDaoService.removeTransactByPrimaryKey(3003);
-        assertNull(transactDaoService.getTransactByPrimaryKey(3003));
+        Assert.assertNull(transactDaoService.getTransactByPrimaryKey(3003));
     }
 
     @Test
     public void testGetTransactsForParticularFund() {
         var transactionsForFund2002 = transactDaoService.getTransactByFundId(2002);
-        assertNotNull(transactionsForFund2002);
+        Assert.assertNotNull(transactionsForFund2002);
         assertEquals(3, transactionsForFund2002.size());
     }
 
@@ -41,7 +41,7 @@ public class TransactDaoServiceTest {
     public void testGetAllTransacts() {
         var transacts = transactDaoService.getAllTransacts();
 
-        assertNotNull(transacts);
+        Assert.assertNotNull(transacts);
         assertEquals(6, transacts.size());
     }
 

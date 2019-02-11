@@ -1,16 +1,13 @@
-package org.kd.hibernatewithspring.tradeapp;
+package org.kd.tradeapp;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.kd.hibernate.tradeapp.Application;
-import org.kd.hibernate.tradeapp.service.PartyDaoService;
+import org.kd.tradeapp.service.PartyDaoService;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,8 +25,8 @@ public class PartyDaoServiceTest {
 
         var allParties = userDaoService.getAllParties();
 
-        assertNotNull(allParties);
-        assertTrue(allParties.size() > 0);
+        Assert.assertNotNull(allParties);
+        Assert.assertTrue(allParties.size() > 0);
     }
 
 }

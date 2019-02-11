@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS parties;
 DROP TABLE IF EXISTS funds;
 DROP TABLE IF EXISTS transact;
+DROP TABLE IF EXISTS countries;
 
 CREATE TABLE parties (
     id int NOT NULL AUTO_INCREMENT,
@@ -27,6 +28,13 @@ CREATE TABLE transact (
     units float,
     FOREIGN KEY (party_id) REFERENCES parties(id),
     FOREIGN KEY (fund_id) REFERENCES funds(id)
+);
+
+CREATE TABLE countries (
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(100),
+    shortname varchar(5),
+    currency varchar(5)
 );
 
 INSERT INTO parties(id, shortname, name) VALUES (1001, 'A', 'Agilent Technologies');
@@ -259,3 +267,8 @@ INSERT INTO transact(party_id, fund_id, units) VALUES (1009, 2002, 81);
 INSERT INTO transact(party_id, fund_id, units) VALUES (1009, 2002, 8100);
 INSERT INTO transact(party_id, fund_id, units) VALUES (1011, 2019, 8102);
 INSERT INTO transact(party_id, fund_id, units) VALUES (1011, 2002, 8103);
+
+INSERT INTO countries(id, name, shortname, currency) VALUES (9000, 'Poland', 'PL', 'PLN');
+INSERT INTO countries(name, shortname, currency) VALUES ('Hong Kong', 'HK', 'HKD');
+INSERT INTO countries(name, shortname, currency) VALUES ('Germany', 'DE', 'EUR');
+INSERT INTO countries(name, shortname, currency) VALUES ('Malaysia', 'MY', 'MYR');
