@@ -7,8 +7,6 @@
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
-        <spring.version>5.1.1.RELEASE</spring.version>
-        <aspectj.version>1.9.2</aspectj.version>
         <javax.inject.version>1</javax.inject.version>
 
         <hibernate.version>3.6.10.Final</hibernate.version>
@@ -19,9 +17,6 @@
         <mockito.version>2.23.4</mockito.version>
         <hamcrest.version>1.3</hamcrest.version>
 
-        <spring-boot-test.version>2.0.7.RELEASE</spring-boot-test.version>
-        <spring-boot.version>2.0.7.RELEASE</spring-boot.version>
-        <spring-boot-starter-data-jpa.version>2.1.1.RELEASE</spring-boot-starter-data-jpa.version>
         <h2.version>1.4.197</h2.version>
 
         <slf4j.version>1.7.25</slf4j.version>
@@ -38,36 +33,13 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>${aspectj.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>${aspectj.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>${mockito.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -101,17 +73,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>${spring-boot-starter-data-jpa.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
@@ -123,13 +84,6 @@
             <scope>runtime</scope>
             <version>${h2.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring-boot-test.version}</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>

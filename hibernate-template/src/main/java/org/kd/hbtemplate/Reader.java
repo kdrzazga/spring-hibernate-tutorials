@@ -28,7 +28,7 @@ public class Reader {
             var funds = session.createQuery(criteria).getResultList();
             session.close();
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

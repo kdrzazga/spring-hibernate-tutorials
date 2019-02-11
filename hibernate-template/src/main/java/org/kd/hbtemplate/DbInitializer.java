@@ -48,7 +48,6 @@ public class DbInitializer {
                 stmt.execute(sqlCommand);
             }
 
-            System.out.println("H2 In-Memory Database inserted through Statement");
             stmt.close();
             connection.commit();
         } catch (Exception e) {
