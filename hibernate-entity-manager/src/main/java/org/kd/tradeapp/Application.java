@@ -18,7 +18,6 @@ public class Application {
     public static void stop(){
         context.stop();
         context.close();
-
     }
 
     private static void writeInfo() {
