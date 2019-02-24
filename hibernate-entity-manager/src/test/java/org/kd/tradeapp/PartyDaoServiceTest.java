@@ -1,6 +1,7 @@
 package org.kd.tradeapp;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kd.tradeapp.entity.Fund;
@@ -61,6 +62,19 @@ public class PartyDaoServiceTest {
         assertEquals(partyId, partyDaoService.get("TEST").getId());
     }
 
+
+    @Test
+    public void testPartyUpdate(){
+        var newPartyName = "NEW TEST NAME";
+        var party = partyDaoService.get(1012L);
+        party.setName(newPartyName);
+        partyDaoService.update(party);
+
+        var readParty = partyDaoService.get(1012L);
+        assertEquals(newPartyName, readParty.getName());
+    }
+
+    @Ignore
     @Test
     public void testPersistenceAndDetach(){
         var party = new Party("Test Party 3", "TEST3");

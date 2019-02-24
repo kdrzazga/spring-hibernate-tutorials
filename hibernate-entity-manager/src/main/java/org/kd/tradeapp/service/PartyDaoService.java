@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class PartyDaoService {
+public class PartyDaoService{
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -44,7 +44,7 @@ public class PartyDaoService {
         var crBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Party> query = crBuilder.createQuery(Party.class);
         Root<Party> root = query.from(Party.class);
-        query.select(root).where(crBuilder.equal(root.get("id"), id));//SELECT from Party WHERE id=id
+        query.select(root).where(crBuilder.equal(root.get("id"), id));//SELECT from Fund WHERE id=id
         Query<Party> q = session.createQuery(query);
         return q.getSingleResult();
     }
@@ -69,7 +69,12 @@ public class PartyDaoService {
         return q.getResultList();
     }
 
-    private Session getSession() {
+    public void update(Party party){
+        var session = getSession();
+        session.update(party);
+    }
+
+    protected Session getSession() {
         Session session = null;
         if (entityManager == null
                 || (session = entityManager.unwrap(Session.class)) == null) {
@@ -78,4 +83,5 @@ public class PartyDaoService {
         }
         return session;
     }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = {Application.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -43,6 +44,11 @@ public class TransactDaoServiceTest {
 
         Assert.assertNotNull(transacts);
         assertEquals(6, transacts.size());
+    }
+
+    @Test
+    public void testBook(){
+        assertTrue(transactDaoService.book(1011L, 2002L, 0.5f));
     }
 
 }

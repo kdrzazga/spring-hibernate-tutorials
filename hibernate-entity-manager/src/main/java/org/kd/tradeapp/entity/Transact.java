@@ -10,8 +10,8 @@ public class Transact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private int party_id;
-    private int fund_id;
+    private int src_fund_id;
+    private int dest_fund_id;
     private float units;
 
     public int getId() {
@@ -22,21 +22,6 @@ public class Transact implements Serializable {
         this.id = id;
     }
 
-    public int getParty_id() {
-        return party_id;
-    }
-
-    public void setParty_id(int party_id) {
-        this.party_id = party_id;
-    }
-
-    public int getFund_id() {
-        return fund_id;
-    }
-
-    public void setFund_id(int fund_id) {
-        this.fund_id = fund_id;
-    }
 
     public float getUnits() {
         return units;
@@ -48,6 +33,22 @@ public class Transact implements Serializable {
 
     @Override
     public String toString() {
-        return "Transaction " + this.id + "from Fund " + getFund_id() + " to party " + getParty_id();
+        return "Transaction " + this.id + "from Fund " + getDest_fund_id() + " to party " + getSrc_fund_id();
+    }
+
+    public int getDest_fund_id() {
+        return dest_fund_id;
+    }
+
+    public void setDest_fund_id(int dest_fund_id) {
+        this.dest_fund_id = dest_fund_id;
+    }
+
+    public int getSrc_fund_id() {
+        return src_fund_id;
+    }
+
+    public void setSrc_fund_id(int src_fund_id) {
+        this.src_fund_id = src_fund_id;
     }
 }

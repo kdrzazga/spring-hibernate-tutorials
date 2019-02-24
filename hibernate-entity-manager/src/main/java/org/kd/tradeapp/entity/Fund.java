@@ -11,10 +11,20 @@ public class Fund implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String name;
     private String shortname;
+    private String name;
     private float units;
     private int party_id;
+
+    private Fund() {
+    }
+
+    public Fund(String shortname, String name, float units, int party_id) {
+        this.shortname = shortname;
+        this.name = name;
+        this.units = units;
+        this.party_id = party_id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -36,7 +46,7 @@ public class Fund implements Serializable {
         this.party_id = party_id;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
