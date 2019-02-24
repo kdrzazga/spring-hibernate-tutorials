@@ -23,11 +23,11 @@ CREATE TABLE funds (
 
 CREATE TABLE transact (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    src_fund_id int,
+    party_id int,
     dest_fund_id int,
     units float,
-    FOREIGN KEY (src_fund_id) REFERENCES funds(id),
-    FOREIGN KEY (dest_fund_id) REFERENCES party(id)
+    FOREIGN KEY (party_id) REFERENCES parties(id),
+    FOREIGN KEY (dest_fund_id) REFERENCES funds(id)
 );
 
 CREATE TABLE countries (
@@ -261,12 +261,12 @@ INSERT INTO funds(shortname, name, units, party_id) VALUES ('LYG', 'Lloyds Banki
 INSERT INTO funds(shortname, name, units, party_id) VALUES ('LYV', 'Live Nation Entertainment', 48.65, 1030);
 INSERT INTO funds(shortname, name, units, party_id) VALUES ('LZB', 'La-Z-Boy Inc', 26.06, 1031);
 
-INSERT INTO transact(id, src_party_id, dest_fund_id, units) VALUES (3001, 1025, 2001, 123.44);
-INSERT INTO transact(src_party_id, dest_fund_id, units) VALUES (1005, 2003, 6633);
-INSERT INTO transact(src_party_id, dest_fund_id, units) VALUES (1009, 2002, 81);
-INSERT INTO transact(src_party_id, dest_fund_id, units) VALUES (1009, 2002, 8100);
-INSERT INTO transact(src_party_id, dest_fund_id, units) VALUES (1011, 2019, 8102);
-INSERT INTO transact(src_party_id, dest_fund_id, units) VALUES (1011, 2002, 8103);
+INSERT INTO transact(id, party_id, dest_fund_id, units) VALUES (3001, 1025, 2001, 123.44);
+INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1005, 2003, 6633);
+INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1009, 2002, 81);
+INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1009, 2002, 8100);
+INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1011, 2019, 8102);
+INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1011, 2002, 8103);
 
 INSERT INTO countries(id, name, shortname, currency) VALUES (9000, 'Poland', 'PL', 'PLN');
 INSERT INTO countries(name, shortname, currency) VALUES ('Hong Kong', 'HK', 'HKD');

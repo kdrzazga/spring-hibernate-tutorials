@@ -4,6 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <groupId>org.kd</groupId>
+    <artifactId>hibernate-entity-manager</artifactId>
+    <version>0.6.0-SNAPSHOT</version>
+
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
@@ -24,9 +28,6 @@
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
-    <groupId>org.kd</groupId>
-    <artifactId>hibernate-entity-manager</artifactId>
-    <version>0.5.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>javax.inject</groupId>
