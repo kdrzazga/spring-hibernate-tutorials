@@ -5,14 +5,13 @@ import org.kd.tradeapp.entity.Fund;
 import org.kd.tradeapp.entity.Transact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
 public class TransactDaoService {
 
     @PersistenceContext
@@ -24,10 +23,12 @@ public class TransactDaoService {
     @Autowired
     private FundDaoService fundDaoService;
 
+    @Transactional
     public Transact getTransactByPrimaryKey(int id) {
         return entityManager.find(Transact.class, id);
     }
 
+    @Transactional
     public void removeTransactByPrimaryKey(int id) {
         var entity = entityManager.find(Transact.class, id);
         //entityManager.getTransaction().begin();// this is handled by Spring @Transactional
@@ -35,6 +36,7 @@ public class TransactDaoService {
         //entityManager.getTransaction().commit();// this is handled by Spring @Transactional too
     }
 
+    @Transactional
     public List<Transact> getAllTransacts() {
         var session = entityManager.unwrap(Session.class);
         var builder = session.getCriteriaBuilder();
@@ -46,6 +48,7 @@ public class TransactDaoService {
         return transacts;
     }
 
+    @Transactional
     public List<Transact> getTransactByFundId(int fundId) {
         var session = entityManager.unwrap(Session.class);
         var builder = session.getCriteriaBuilder();
@@ -60,36 +63,42 @@ public class TransactDaoService {
         return transacts;
     }
 
-    public boolean book(long sourceFundIs, long destFundId, float units) {
+    @Transactional
+    public int book(long sourceFundIs, long destFundId, float units) {
 
         var destFund = fundDaoService.get(destFundId);
         var sourceFund = fundDaoService.get(sourceFundIs);
 
-        if (destFund == null || sourceFund == null) return false;
+        if (destFund == null || sourceFund == null) return -1;
 
         return (destFund.getParty_id() == sourceFund.getParty_id())
                 ? bookInternalTransact(sourceFund, destFund, units)
                 : bookExternalTransact();
     }
 
-    private boolean bookInternalTransact(Fund sourceFund, Fund destFund, float units) {
-        if (sourceFund.getUnits() < units) return false;
+    private int bookInternalTransact(Fund sourceFund, Fund destFund, float units) {
+        if (sourceFund.getUnits() < units) return -1;
 
         sourceFund.setUnits(sourceFund.getUnits() - units);
         destFund.setUnits(destFund.getUnits() + units);
 
         fundDaoService.update(sourceFund);
         fundDaoService.update(destFund);
-        return addNewTransact(sourceFund.getId(), destFund.getId(), units);
+        return addNewTransact(sourceFund.getId(), destFund.getId(), units, true);
     }
 
-    private boolean bookExternalTransact() {
+    private int bookExternalTransact() {
         throw new RuntimeException("Not implemented yet");
+        //TODO implement
     }
 
-    private boolean addNewTransact(int sourceFundId, int destFundId, float units){
-        //TODO entityManager.persist(new Transact(sourceFundId, destFundId, units));
-        return true;
+    private int addNewTransact(int sourceFundId, int destFundId, float units, boolean internal){
+        var newTransact = new Transact(sourceFundId, destFundId, units, internal);
+
+        entityManager.persist(newTransact);
+        entityManager.flush();
+
+        return newTransact.getId();
     }
 
 }

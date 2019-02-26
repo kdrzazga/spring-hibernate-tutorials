@@ -9,35 +9,46 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
-@Transactional
-public class FundDaoService{
+public class FundDaoService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     public long insert(Fund fund) {
         entityManager.persist(fund);
         return fund.getId();
     }
 
-    public boolean isPersisted(Fund fund){
+    public boolean isPersisted(Fund fund) {
         return entityManager.contains(fund);
     }
 
-    public void detach(Fund fund){
+    @Transactional
+    public void detach(Fund fund) {
         entityManager.detach(fund);
     }
 
-    public List<Fund> getAllFunds(){
-        var query = entityManager.createQuery("SELECT id, name, shortname, units, party_id FROM Fund");
+    @Transactional
+    public List<Fund> getAllFunds() {
+        //javax.persistence.Query query = entityManager.createQuery("SELECT id, name, shortname, units, party_id FROM Fund");//doesn't work
 
-        return query.getResultList();
+        var session = getSession();
+        var crBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Fund> query = crBuilder.createQuery(Fund.class);
+        Root<Fund> root = query.from(Fund.class);
+        query.select(root);
+        Query<Fund> q = session.createQuery(query);
+
+        return q.getResultList();
     }
 
+    @Transactional
     public Fund get(long id) {
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
@@ -48,6 +59,7 @@ public class FundDaoService{
         return q.getSingleResult();
     }
 
+    @Transactional
     public Fund get(String shortname) {
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
@@ -58,12 +70,13 @@ public class FundDaoService{
         return q.getSingleResult();
     }
 
+    @Transactional
     public void update(Fund fund) {
         var session = getSession();
         session.update(fund);
     }
 
-    private Session getSession() {
+    Session getSession() {
         Session session = null;
         if (entityManager == null
                 || (session = entityManager.unwrap(Session.class)) == null) {

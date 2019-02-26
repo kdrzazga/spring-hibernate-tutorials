@@ -23,9 +23,7 @@ public class DbInitializer {
 
     public void init() throws SQLException {
 
-        var connection = getDBConnection();
-
-        try {
+        try (var connection = getDBConnection()) {
             List<String> lines = Files
                     .lines(Path.of(DB_SCRIPT_PATH), Charset.forName("UTF-8"))
                     .filter(line -> line.length() > 0)
@@ -53,8 +51,6 @@ public class DbInitializer {
         } catch (Exception e) {
             System.out.println("Exception Message " + e.getLocalizedMessage());
 
-        } finally {
-            connection.close();
         }
     }
 

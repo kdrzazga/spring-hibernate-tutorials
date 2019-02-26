@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class Application {
+public class TradeApplication {
 
     private static ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
-        context = SpringApplication.run(Application.class, args);
+        context = SpringApplication.run(TradeApplication.class, args);
         writeInfo();
     }
 
@@ -21,7 +21,7 @@ public class Application {
     }
 
     private static void writeInfo() {
-        LoggerFactory.getLogger(Application.class).info("\nH2 database link: http://localhost:8080/h2-console");
-        LoggerFactory.getLogger(Application.class).info("Make sure h2 console is enabled in application.properties");
+        LoggerFactory.getLogger(TradeApplication.class).info("\nH2 database link: http://localhost:8080/h2-console");
+        LoggerFactory.getLogger(TradeApplication.class).info("Make sure h2 console is enabled in application.properties");
     }
 }

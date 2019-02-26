@@ -6,12 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-public class Application {
+public class UserApplication {
 
     private static ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
-        context = SpringApplication.run(Application.class, args);
+        context = SpringApplication.run(UserApplication.class, args);
     }
 
     public static User getUserFromContext() {

@@ -2,7 +2,11 @@
 DROP TABLE IF EXISTS parties;
 DROP TABLE IF EXISTS funds;
 DROP TABLE IF EXISTS transact;
+
 DROP TABLE IF EXISTS countries;
+
+DROP TABLE IF EXISTS post;
+DROP TABLE IF EXISTS post_comment;
 
 CREATE TABLE parties (
     id int NOT NULL AUTO_INCREMENT,
@@ -23,12 +27,14 @@ CREATE TABLE funds (
 
 CREATE TABLE transact (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    party_id int,
+    src_fund_id int,
     dest_fund_id int,
     units float,
-    FOREIGN KEY (party_id) REFERENCES parties(id),
+    internal BOOLEAN,
+    --FOREIGN KEY (src_fund_id) REFERENCES funds(id),
     FOREIGN KEY (dest_fund_id) REFERENCES funds(id)
 );
+-----------------------------------------------------------
 
 CREATE TABLE countries (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -36,6 +42,21 @@ CREATE TABLE countries (
     shortname varchar(5),
     currency varchar(5)
 );
+-----------------------------------------------------------
+
+--https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+CREATE TABLE post (
+    id bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title varchar(255),
+);
+
+CREATE TABLE post_comment (
+    id bigint NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    review varchar(255),
+    post_id bigint(20),
+    FOREIGN KEY (post_id) REFERENCES post(id)
+);
+-----------------------------------------------------------
 
 INSERT INTO parties(id, shortname, name) VALUES (1001, 'A', 'Agilent Technologies');
 INSERT INTO parties(shortname, name) VALUES('AAC', 'Aac Holdings Inc');
@@ -261,14 +282,24 @@ INSERT INTO funds(shortname, name, units, party_id) VALUES ('LYG', 'Lloyds Banki
 INSERT INTO funds(shortname, name, units, party_id) VALUES ('LYV', 'Live Nation Entertainment', 48.65, 1030);
 INSERT INTO funds(shortname, name, units, party_id) VALUES ('LZB', 'La-Z-Boy Inc', 26.06, 1031);
 
-INSERT INTO transact(id, party_id, dest_fund_id, units) VALUES (3001, 1025, 2001, 123.44);
-INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1005, 2003, 6633);
-INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1009, 2002, 81);
-INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1009, 2002, 8100);
-INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1011, 2019, 8102);
-INSERT INTO transact(party_id, dest_fund_id, units) VALUES (1011, 2002, 8103);
-
+INSERT INTO transact(id, src_fund_id, dest_fund_id, units, internal) VALUES (3001, 1025, 2001, 123.44, TRUE);
+INSERT INTO transact(src_fund_id, dest_fund_id, units, internal) VALUES (2005, 2003, 6633, FALSE);
+INSERT INTO transact(src_fund_id, dest_fund_id, units, internal) VALUES (2009, 2002, 81, FALSE);
+INSERT INTO transact(src_fund_id, dest_fund_id, units, internal) VALUES (2009, 2002, 8100, TRUE);
+INSERT INTO transact(src_fund_id, dest_fund_id, units, internal) VALUES (2011, 2002, 8103, FALSE);
+INSERT INTO transact(src_fund_id, dest_fund_id, units, internal) VALUES (2011, 2019, 8102, TRUE);
+-----------------------------------------------------------
 INSERT INTO countries(id, name, shortname, currency) VALUES (9000, 'Poland', 'PL', 'PLN');
 INSERT INTO countries(name, shortname, currency) VALUES ('Hong Kong', 'HK', 'HKD');
 INSERT INTO countries(name, shortname, currency) VALUES ('Germany', 'DE', 'EUR');
 INSERT INTO countries(name, shortname, currency) VALUES ('Malaysia', 'MY', 'MYR');
+
+-----------------------------------------------------------
+INSERT INTO post(id, title) VALUES (10, 'Article number 1');
+INSERT INTO post(id, title) VALUES (11, 'Article number 2');
+
+INSERT INTO post_comment(id, review, post_id) VALUES (100, 'Poor article', 10);
+INSERT INTO post_comment(review, post_id) VALUES ('Good article', 11);
+INSERT INTO post_comment(review, post_id) VALUES ('I strongly disagree with the article', 10);
+INSERT INTO post_comment(review, post_id) VALUES ('I disagree with the article', 10);
+INSERT INTO post_comment(review, post_id) VALUES ('This article is a piece of sh..', 11);

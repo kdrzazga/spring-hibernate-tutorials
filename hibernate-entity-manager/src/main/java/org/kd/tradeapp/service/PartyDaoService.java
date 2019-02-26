@@ -5,40 +5,49 @@ import org.hibernate.query.Query;
 import org.kd.tradeapp.entity.Fund;
 import org.kd.tradeapp.entity.Party;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-@Transactional
-public class PartyDaoService{
+public class PartyDaoService {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Transactional
     public long insert(Party party) {
         entityManager.persist(party);
         return party.getId();
     }
 
-    public boolean isPersisted(Party party){
+    public boolean isPersisted(Party party) {
         return entityManager.contains(party);
     }
 
-    public void detach(Party party){
+    public void detach(Party party) {
         entityManager.detach(party);
     }
 
+    @Transactional
     public List<Party> getAllParties() {
-        var query = entityManager.createQuery("SELECT id, name, shortname FROM Party");
+        /*var query = entityManager.createQuery("SELECT id, name, shortname FROM Party");
 
-        return query.getResultList();
+        return query.getResultList();*/
+        var session = getSession();
+        var builder = session.getCriteriaBuilder();
+        var criteria = builder.createQuery(Party.class);
+        criteria.from(Party.class);
+
+        var parties = session.createQuery(criteria).getResultList();
+        return parties;
     }
 
+    @Transactional
     public Party get(long id) {
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
@@ -49,6 +58,7 @@ public class PartyDaoService{
         return q.getSingleResult();
     }
 
+    @Transactional
     public Party get(String shortname) {
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
@@ -59,7 +69,8 @@ public class PartyDaoService{
         return q.getSingleResult();
     }
 
-    public List<Fund> getAssociatedFunds(long partyId){
+    @Transactional
+    public List<Fund> getAssociatedFunds(long partyId) {
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
         var query = crBuilder.createQuery(Fund.class);
@@ -69,7 +80,8 @@ public class PartyDaoService{
         return q.getResultList();
     }
 
-    public void update(Party party){
+    @Transactional
+    public void update(Party party) {
         var session = getSession();
         session.update(party);
     }
