@@ -19,7 +19,7 @@ public class UserRepoServiceCLI implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        var user = new User("Barbara", "Admin");
+        var user = new User("Barbara", "Admin", "10252320699");
         userRepository.save(user);
         log.info("new user created " + user + " with UserRepository.save() method");
         Optional<User> userWithId1 = userRepository.findById(1L);

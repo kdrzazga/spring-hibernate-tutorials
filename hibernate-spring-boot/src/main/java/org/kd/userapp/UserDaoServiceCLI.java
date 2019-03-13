@@ -18,7 +18,7 @@ public class UserDaoServiceCLI implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        var user = new User("Jacek", "Admin");
+        var user = new User("Jacek", "Admin", "77080187862");
         long id = userDAOService.insert(user);
         log.info("new user created " + user);
     }

@@ -1,6 +1,5 @@
 package org.kd.springrest.demo.server;
 
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.kd.springrest.demo.server.model.Country;

@@ -1,5 +1,7 @@
 package org.kd.userapp.entity;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +14,9 @@ public class User implements Serializable {
     @GeneratedValue
     private long id;
 
+    @NaturalId
+    String pesel;
+
     private String name;
 
     private String role;
@@ -19,10 +24,11 @@ public class User implements Serializable {
     protected User(){
     }
 
-    public User(String name, String role) {
+    public User(String name, String role, String pesel) {
         super();
         this.name = name;
         this.role = role;
+        this.pesel = pesel;
     }
 
     public long getId() {

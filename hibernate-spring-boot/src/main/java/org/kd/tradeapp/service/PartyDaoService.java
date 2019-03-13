@@ -94,5 +94,4 @@ public class PartyDaoService {
         }
         return session;
     }
-
 }

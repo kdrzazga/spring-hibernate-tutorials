@@ -4,11 +4,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "funds")
+@Table(name = "TRD_funds")
 public class Fund implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String shortname;
