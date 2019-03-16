@@ -2,6 +2,7 @@
 DROP TABLE IF EXISTS TRD_parties;
 DROP TABLE IF EXISTS TRD_funds;
 DROP TABLE IF EXISTS TRD_transact;
+DROP TABLE IF EXISTS TRD_funds_available4party;
 DROP TABLE IF EXISTS TRD_legal_entity;
 DROP TABLE IF EXISTS TRD_address;
 
@@ -11,38 +12,45 @@ DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS post_comment;
 
 CREATE TABLE TRD_parties (
-    id int NOT NULL AUTO_INCREMENT,
+    id long NOT NULL AUTO_INCREMENT,
     name varchar(255),
     shortname varchar(16),
     PRIMARY KEY (id)
 );
 
 CREATE TABLE TRD_funds (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar(255),
+    id long NOT NULL AUTO_INCREMENT,
     shortname varchar(16),
+    name varchar(255),
     units float,
-    party_id int,
+    party_id long,
     PRIMARY KEY (id),
     FOREIGN KEY (party_id) REFERENCES TRD_parties(id)
 );
 
 CREATE TABLE TRD_transact (
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    src_fund_id int,
-    dest_fund_id int,
+    id long NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    src_fund_id long,
+    dest_fund_id long,
     units float,
     internal BOOLEAN,
     --FOREIGN KEY (src_fund_id) REFERENCES TRD_funds(id),
     FOREIGN KEY (dest_fund_id) REFERENCES TRD_funds(id)
 );
 
---CREATE TABLE TRD_legal_entity(
---    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
---    name varchar(255),
---    street varchar(255),
---    country varchar(45)
---);
+CREATE TABLE TRD_funds_available4party (
+    party_id long,
+    fund_id long,
+    FOREIGN KEY (party_id) REFERENCES TRD_parties(id),
+    FOREIGN KEY (fund_id) REFERENCES TRD_funds(id)
+);
+
+CREATE TABLE TRD_legal_entity(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    street varchar(255),
+    country varchar(45)
+);
 --
 --CREATE TABLE TRD_address(
 --    street varchar(255),
@@ -125,8 +133,8 @@ INSERT INTO TRD_parties(shortname, name) VALUES('MTB', 'M&T Bank Corp');
 INSERT INTO TRD_parties(shortname, name) VALUES('MTB-C', 'M&T Bank Corporation Fixed Rate');
 INSERT INTO TRD_parties(shortname, name) VALUES('MTB.P', 'M&T Bank Corporation Fixed Rate');
 
-INSERT INTO TRD_funds(id, shortname, name, units, party_id) VALUES (2001, 'MUSA', 'Murphy USA Inc', 2001.24, 1022);
-INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('RAD', 'Rite Aid Corp', 0.7100, 1011);
+INSERT INTO TRD_funds(id, shortname, name, units, party_id) VALUES (2001, 'MUSA', 'Murphy USA Inc', 2001.24, 1001);
+INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('RAD', 'Rite Aid Corp', 0.7100, 1002);
 INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('RAMP', 'Liveramp Holdings Inc.', 38.35, 1011);
 INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('RBA', 'Ritchie Bros. Auctioneers Inc', 31.33, 1011);
 INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('RBC', 'Regal-Beloit Corp', 69.18, 1021);
@@ -296,6 +304,14 @@ INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('LYG', 'Lloyds B
 INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('LYV', 'Live Nation Entertainment', 48.65, 1030);
 INSERT INTO TRD_funds(shortname, name, units, party_id) VALUES ('LZB', 'La-Z-Boy Inc', 26.06, 1031);
 
+INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1001, 2001);
+--INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1001, 2002);
+--INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1002, 2002);
+INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1003, 2004);
+INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1004, 2006);
+INSERT INTO TRD_funds_available4party(party_id, fund_id) VALUES (1005, 2008);
+
+
 INSERT INTO TRD_transact(id, src_fund_id, dest_fund_id, units, internal) VALUES (3001, 1025, 2001, 123.44, TRUE);
 INSERT INTO TRD_transact(src_fund_id, dest_fund_id, units, internal) VALUES (2005, 2003, 6633, FALSE);
 INSERT INTO TRD_transact(src_fund_id, dest_fund_id, units, internal) VALUES (2009, 2002, 81, FALSE);
@@ -303,9 +319,9 @@ INSERT INTO TRD_transact(src_fund_id, dest_fund_id, units, internal) VALUES (200
 INSERT INTO TRD_transact(src_fund_id, dest_fund_id, units, internal) VALUES (2011, 2002, 8103, FALSE);
 INSERT INTO TRD_transact(src_fund_id, dest_fund_id, units, internal) VALUES (2011, 2019, 8102, TRUE);
 
---INSERT INTO TRD_legal_entity (id, name, street, country) VALUES (4001, 'Financial Supervision Comitee', 'London', 'UK');
---INSERT INTO TRD_legal_entity (name, street, country) VALUES ('U.S. Securities and Exchange Commission', 'Washington', 'USA');
---INSERT INTO TRD_legal_entity (name, street, country) VALUES ('Autorité des marchés financiers', 'Paris', 'France');
+INSERT INTO TRD_legal_entity (id, name, street, country) VALUES (4001, 'Financial Supervision Comitee', 'London', 'UK');
+INSERT INTO TRD_legal_entity (name, street, country) VALUES ('U.S. Securities and Exchange Commission', 'Washington', 'USA');
+INSERT INTO TRD_legal_entity (name, street, country) VALUES ('Autorité des marchés financiers', 'Paris', 'France');
 
 -----------------------------------------------------------
 INSERT INTO countries(id, name, shortname, currency) VALUES (9000, 'Poland', 'PL', 'PLN');

@@ -50,13 +50,15 @@ public class FundDaoService {
 
     @Transactional
     public Fund get(long id) {
+
+        return entityManager.find(Fund.class, id);/*
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Fund> query = crBuilder.createQuery(Fund.class);
         Root<Fund> root = query.from(Fund.class);
         query.select(root).where(crBuilder.equal(root.get("id"), id));//SELECT from Fund WHERE id=id
         Query<Fund> q = session.createQuery(query);
-        return q.getSingleResult();
+        return q.getSingleResult();*/
     }
 
     @Transactional

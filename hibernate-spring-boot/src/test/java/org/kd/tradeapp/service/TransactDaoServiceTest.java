@@ -27,15 +27,17 @@ public class TransactDaoServiceTest {
 
     @Test
     public void testGetTransactByPrimaryKey() {
-        assertEquals(3002, transactDaoService.getTransactByPrimaryKey(3002).getId());
-        assertEquals(3003, transactDaoService.getTransactByPrimaryKey(3003).getId());
-        assertEquals(3005, transactDaoService.getTransactByPrimaryKey(3005).getId());
+        assertEquals(3002L, transactDaoService.getTransactByPrimaryKey(3002).getId().longValue());
+        assertEquals(3003L, transactDaoService.getTransactByPrimaryKey(3003).getId().longValue());
+        assertEquals(3005L, transactDaoService.getTransactByPrimaryKey(3005).getId().longValue());
     }
 
     @Test
     public void testRemoveTransactByPrimaryKey() {
-        transactDaoService.removeTransactByPrimaryKey(3006);
-        Assert.assertNull(transactDaoService.getTransactByPrimaryKey(3006));
+        var transactId = 3006L;
+        assertNotNull(transactDaoService.getTransactByPrimaryKey(transactId));
+        transactDaoService.removeTransactByPrimaryKey(transactId);
+        Assert.assertNull(transactDaoService.getTransactByPrimaryKey(transactId));
         transactDaoService.book(2003, 2004, 30.02f);//books transact again, but id will change
     }
 
@@ -57,21 +59,21 @@ public class TransactDaoServiceTest {
 
     @Test
     public void testBookInternalTransact() {
-        int srcFundId = 2002;
-        var commonPartyId = fundDaoService.get(srcFundId).getParty_id();
+        long srcFundId = 2002;
+        var commonPartyId = fundDaoService.get(srcFundId).getParty().getId();
 
-        checkBookingTransact(srcFundId, fund -> fund.getParty_id() == commonPartyId);
+        checkBookingTransact(srcFundId, fund -> fund.getParty().getId() == commonPartyId);
     }
 
     @Test
     public void testBookExternalTransact() {
-        int srcFundId = 2011;
-        var commonPartyId = fundDaoService.get(srcFundId).getParty_id();
+        long srcFundId = 2011L;
+        var commonPartyId = fundDaoService.get(srcFundId).getParty().getId();
 
-        checkBookingTransact(srcFundId, fund -> fund.getParty_id() != commonPartyId);
+        checkBookingTransact(srcFundId, fund -> fund.getParty().getId() != commonPartyId);
     }
 
-    private void checkBookingTransact(int srcFundId, Predicate<Fund> partyIdComparisonPredicate) {
+    private void checkBookingTransact(long srcFundId, Predicate<Fund> partyIdComparisonPredicate) {
 
         var destFund = fundDaoService.getAllFunds()
                 .stream()
@@ -82,14 +84,14 @@ public class TransactDaoServiceTest {
             fail("Wrong test data. Cannot book Transact. Only one fund with appropriate party id ");
 
         final int errorCode = -1;
-        final int newTransactId =  transactDaoService.book(srcFundId, destFund.get().getId(), 0.5f);
+        final long newTransactId =  transactDaoService.book(srcFundId, destFund.get().getId(), 0.5f);
 
         assertNotEquals(errorCode, newTransactId);
 
         removeBookedTransact(newTransactId);
     }
 
-    private void removeBookedTransact(int id) {
+    private void removeBookedTransact(long id) {
         transactDaoService.removeTransactByPrimaryKey(id);
     }
 

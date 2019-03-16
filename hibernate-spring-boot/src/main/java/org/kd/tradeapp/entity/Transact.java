@@ -9,27 +9,27 @@ public class Transact implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int src_fund_id;
-    private int dest_fund_id;
+    private Long id;
+    private Long src_fund_id;
+    private Long dest_fund_id;
     private float units;
     private boolean internal;
 
     private Transact(){
     }
 
-    public Transact(int src_fund_id, int dest_fund_id, float units, boolean internal){
+    public Transact(Long src_fund_id, Long dest_fund_id, float units, boolean internal){
         this.src_fund_id = src_fund_id;
         this.dest_fund_id = dest_fund_id;
         this.units = units;
         this.internal = internal;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,19 +46,19 @@ public class Transact implements Serializable {
         return "Transaction " + this.id + "from Fund " + getDest_fund_id() + " to party " + getSrc_fund_id();
     }
 
-    public int getDest_fund_id() {
+    public Long getDest_fund_id() {
         return dest_fund_id;
     }
 
-    public void setDest_fund_id(int dest_fund_id) {
+    public void setDest_fund_id(Long dest_fund_id) {
         this.dest_fund_id = dest_fund_id;
     }
 
-    public int getSrc_fund_id() {
+    public Long getSrc_fund_id() {
         return src_fund_id;
     }
 
-    public void setSrc_fund_id(int src_fund_id) {
+    public void setSrc_fund_id(Long src_fund_id) {
         this.src_fund_id = src_fund_id;
     }
 

@@ -24,15 +24,16 @@ public class TransactDaoService {
     private FundDaoService fundDaoService;
 
     @Transactional
-    public Transact getTransactByPrimaryKey(int id) {
+    public Transact getTransactByPrimaryKey(long id) {
         return entityManager.find(Transact.class, id);
     }
 
     @Transactional
-    public void removeTransactByPrimaryKey(int id) {
+    public void removeTransactByPrimaryKey(long id) {
         var entity = entityManager.find(Transact.class, id);
         //entityManager.getTransaction().begin();// this is handled by Spring @Transactional
         entityManager.remove(entity);
+        entityManager.flush();
         //entityManager.getTransaction().commit();// this is handled by Spring @Transactional too
     }
 
@@ -64,20 +65,21 @@ public class TransactDaoService {
     }
 
     @Transactional
-    public int book(long sourceFundIs, long destFundId, float units) {
+    public Long book(long sourceFundIs, long destFundId, float units) {
 
         var destFund = fundDaoService.get(destFundId);
         var sourceFund = fundDaoService.get(sourceFundIs);
 
-        if (destFund == null || sourceFund == null) return -1;
+        if (destFund == null || sourceFund == null) return -1L;
+        if (destFund.getParty() == null || sourceFund.getParty() == null) return -1L;
 
-        return (destFund.getParty_id() == sourceFund.getParty_id())
+        return destFund.getParty().getId() == sourceFund.getParty().getId()
                 ? bookInternalTransact(sourceFund, destFund, units)
                 : bookExternalTransact();
     }
 
-    private int bookInternalTransact(Fund sourceFund, Fund destFund, float units) {
-        if (sourceFund.getUnits() < units) return -1;
+    private Long bookInternalTransact(Fund sourceFund, Fund destFund, float units) {
+        if (sourceFund.getUnits() < units) return -1L;
 
         sourceFund.setUnits(sourceFund.getUnits() - units);
         destFund.setUnits(destFund.getUnits() + units);
@@ -92,7 +94,7 @@ public class TransactDaoService {
         //TODO implement
     }
 
-    private int addNewTransact(int sourceFundId, int destFundId, float units, boolean internal){
+    private Long addNewTransact(Long sourceFundId, Long destFundId, float units, boolean internal) {
         var newTransact = new Transact(sourceFundId, destFundId, units, internal);
 
         entityManager.persist(newTransact);

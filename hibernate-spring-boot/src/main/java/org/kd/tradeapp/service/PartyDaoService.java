@@ -29,10 +29,6 @@ public class PartyDaoService {
         return entityManager.contains(party);
     }
 
-    public void detach(Party party) {
-        entityManager.detach(party);
-    }
-
     @Transactional
     public List<Party> getAllParties() {
         /*var query = entityManager.createQuery("SELECT id, name, shortname FROM Party");
@@ -70,11 +66,12 @@ public class PartyDaoService {
 
     @Transactional
     public List<Fund> getAssociatedFunds(long partyId) {
+
         var session = getSession();
         var crBuilder = session.getCriteriaBuilder();
         var query = crBuilder.createQuery(Fund.class);
         var root = query.from(Fund.class);
-        query.select(root).where(crBuilder.equal(root.get("party_id"), partyId));//SELECT from Funds WHERE party_id=partyId
+        query.select(root).where(crBuilder.equal(root.get("party").get("id"), partyId));//SELECT from Funds WHERE party_id=partyId
         var q = session.createQuery(query);
         return q.getResultList();
     }
@@ -83,6 +80,12 @@ public class PartyDaoService {
     public void update(Party party) {
         var session = getSession();
         session.update(party);
+    }
+
+    @Transactional
+    public void remove(Party party) {
+        var session = getSession();
+        session.remove(party);
     }
 
     protected Session getSession() {
@@ -94,4 +97,5 @@ public class PartyDaoService {
         }
         return session;
     }
+
 }

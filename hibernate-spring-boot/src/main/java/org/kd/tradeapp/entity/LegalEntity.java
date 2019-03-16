@@ -2,8 +2,8 @@ package org.kd.tradeapp.entity;
 
 import javax.persistence.*;
 
-/*@Entity
-@Table(name = "TRD_legal_entity")*/
+@Entity
+@Table(name = "TRD_legal_entity")
 public class LegalEntity {
 
     @Id

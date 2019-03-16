@@ -5,28 +5,43 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "TRD_funds")
-public class Fund implements Serializable {
+@PrimaryKeyJoinColumn(name = "party_id", referencedColumnName = "id")
+public class Fund{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String shortname;
     private String name;
     private float units;
-    private int party_id;
 
-    private Fund() {
+    @JoinTable(
+            name = "TRD_funds_available4party",
+            joinColumns = @JoinColumn(
+                    name = "fund_id",
+                    referencedColumnName = "id"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "party_id",
+                    referencedColumnName = "id"
+            )
+    )
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    //@JoinColumn(name = "party_id")
+    private Party party;
+
+    Fund() {
     }
 
-    public Fund(String shortname, String name, float units, int party_id) {
+    public Fund(String shortname, String name, float units, Party party) {
         this.shortname = shortname;
         this.name = name;
         this.units = units;
-        this.party_id = party_id;
+        this.party = party;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,11 +57,7 @@ public class Fund implements Serializable {
         this.units = units;
     }
 
-    public void setParty_id(int party_id) {
-        this.party_id = party_id;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -62,8 +73,12 @@ public class Fund implements Serializable {
         return units;
     }
 
-    public int getParty_id() {
-        return party_id;
+    public Party getParty() {
+        return party;
+    }
+
+    public void setParty(Party party) {
+        this.party = party;
     }
 
     @Override

@@ -13,9 +13,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.*;
 
 @SpringBootTest(classes = {TradeApplication.class})
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,59 +29,67 @@ public class PartyDaoServiceTest {
     public void testGetAllParties() {
         var allParties = partyDaoService.getAllParties();
 
-        Assert.assertNotNull(allParties);
+        assertNotNull(allParties);
         assertTrue(allParties.size() > 0);
     }
 
     @Test
     public void testGetSinglePartyById() {
-        var party = partyDaoService.get(1012L);
+        var party = partyDaoService.get(1001L);
 
-        Assert.assertNotNull(party);
-        assertEquals(1012L, party.getId());
+        assertNotNull(party);
+        assertEquals(1001L, party.getId());
     }
 
     @Test
     public void testGetSinglePartyByName() {
-        var party = partyDaoService.get("BABA");
+        var party = partyDaoService.get("AAC");
 
-        Assert.assertNotNull(party);
-        assertEquals("Alibaba Group Holding", party.getName());
+        assertNotNull(party);
+        assertEquals("Aac Holdings Inc", party.getName());
     }
 
     @Test
-    public void testGetAssociatedFund() {
-        List<Fund> associatedFunds = partyDaoService.getAssociatedFunds(1012L);
+    public void testGetAssociatedFundsByFundMapping() {
+        long partyId = 1001L;
+        List<Fund> associatedFunds = partyDaoService.getAssociatedFunds(partyId);
 
-        Assert.assertNotNull(associatedFunds);
-        assertTrue(associatedFunds.size() > 0);
+        assertNotNull(associatedFunds);
+        assertThat(associatedFunds, hasSize(greaterThan(0)));
+        assertEquals(partyId, associatedFunds.get(0).getParty().getId());
     }
 
     @Test
-    public void testInsert(){
+    public void testInsert() {
         var partyId = partyDaoService.insert(new Party("Test Party", "TEST"));
         assertEquals(partyId, partyDaoService.get("TEST").getId());
     }
 
-
     @Test
-    public void testPartyUpdate(){
+    public void testPartyUpdate() {
         var newPartyName = "NEW TEST NAME";
-        var party = partyDaoService.get(1012L);
+        var party = partyDaoService.get(1002L);
         party.setName(newPartyName);
         partyDaoService.update(party);
 
-        var readParty = partyDaoService.get(1012L);
+        var readParty = partyDaoService.get(1002L);
         assertEquals(newPartyName, readParty.getName());
     }
 
     @Ignore
     @Test
-    public void testPersistenceAndDetach(){
+    public void testPersistenceAndRemoval() {
         var party = new Party("Test Party 3", "TEST3");
         var partyId = partyDaoService.insert(party);
-        partyDaoService.detach(party);
-        assertNotEquals(partyId, partyDaoService.get("TEST3").getId());
+
+        partyDaoService.remove(party);
+        assertEquals(partyId, partyDaoService.get("TEST3").getId());
     }
 
+    @Test
+    public void testGetAvailableFundsFromManyToOneMapping() {
+        var party = partyDaoService.get(1001L);
+
+        assertNotNull(party.getAvailableFunds());
+    }
 }

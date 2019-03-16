@@ -2,19 +2,24 @@ package org.kd.tradeapp.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "TRD_parties")
-public class Party implements Serializable {
+public class Party{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @OneToMany
+    private List<Fund> availableFunds;
+
     private String name;
     private String shortname;
 
-    private Party(){
+    Party(){
     }
 
     public Party(String name, String shortname){
@@ -44,6 +49,10 @@ public class Party implements Serializable {
 
     public void setShortname(String shortname) {
         this.shortname = shortname;
+    }
+
+    public List<Fund> getAvailableFunds() {
+        return availableFunds;
     }
 
     @Override
