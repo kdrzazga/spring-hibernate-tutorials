@@ -31,7 +31,7 @@ public class Fund{
     //@JoinColumn(name = "party_id")
     private Party party;
 
-    Fund() {
+    public Fund() {
     }
 
     public Fund(String shortname, String name, float units, Party party) {

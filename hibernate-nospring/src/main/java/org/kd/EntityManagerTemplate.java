@@ -1,32 +1,34 @@
 package org.kd;
 
-import org.hibernate.Metamodel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Table;
 import javax.persistence.metamodel.EntityType;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class EntityManagerTemplate {
 
-    private static EntityManagerFactory emf;
+    private static EntityManagerFactory emFactorySingleton;
 
     private ThreadLocal<EntityManager> entityManagerThreadLocal = new ThreadLocal<>();
-    private String unitName = "jpatraining";
+    private String unitName = "hibernate-without-spring-tutorial";
 
     public EntityManager createEntityManager() {
-        if (emf == null) {//fabryka jest singletonem
-            emf = Persistence.createEntityManagerFactory(unitName);//stawia Hb, kosztowne
+        if (emFactorySingleton == null) {
+            emFactorySingleton = Persistence.createEntityManagerFactory(unitName);//set up Hb, quite time conuming, but not as much as Spring
         }
         getStatistics().setStatisticsEnabled(true);
-        return emf.createEntityManager();
+        return emFactorySingleton.createEntityManager();
     }
 
     public Statistics getStatistics() {
-        return emf.unwrap(SessionFactory.class).getStatistics();//dostajemy sie do sesji, wyluskujemy ja z EM
+        return emFactorySingleton.unwrap(SessionFactory.class).getStatistics();//dostajemy sie do sesji, wyluskujemy ja z EM
     }
 
     public void close() {
@@ -43,47 +45,52 @@ public class EntityManagerTemplate {
         return em;
     }
 
-    //imperatywne zarzadzanie transakcjami. W deklaratywnym zarzadzaniu jak w springu, gdzies zagrzebany jest podobny kod
-    public <T> T executeInTx(Function<EntityManager, T> fun) {//szablon, ktory tworzy EM, potem transakcje
-        EntityManager em = getEntityManager();
-        EntityTransaction tx = em.getTransaction();
+    //Impreative transactions management (imerative -> usinmg commands). Spring uses declarative management (with @-style declarations)
+    // and has something similar buried inside
+    public <T> T executeInTx(Function<EntityManager, T> fun) {
+        var em = getEntityManager();
+        var tx = em.getTransaction();
+
         tx.begin();
         try {
             T result = fun.apply(em);
-            tx.commit();  // po wykonaniu fcji komituje   (commit wykonuje flusha)
-            return result;  // i zwraca wynik
+            tx.commit();  //executes given function and commits
+            return result;
         } catch (RuntimeException ex) {
             tx.rollback();
             throw ex;
         }
     }
 
-    //czyszczenie przed kazdym testem
-    public void cleanDb() {
+    public void executeInTx(Consumer<EntityManager> consumer) {
         executeInTx((em) -> {
-            Session session = em.unwrap(Session.class);
-            Metamodel hibernateMetadata = session.getSessionFactory().getMetamodel();
+            consumer.accept(em);
+            return null;//prevents infinity loop and StackOverflow Exception
+        });
+    }
+
+    public void cleanDb() {
+
+        executeInTx(em -> {
+            var session = em.unwrap(Session.class);
+            var hibernateMetadata = session.getSessionFactory().getMetamodel();
             session.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
+
             hibernateMetadata.getEntities().stream()
                     .map(this::getTableName)
                     .forEach(tableName -> session.createNativeQuery("TRUNCATE TABLE " + tableName)
                             .executeUpdate()
                     );
+
             session.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
         });
     }
 
     private String getTableName(EntityType<?> entityType) {
-        Table table = entityType.getJavaType().getAnnotation(Table.class);
+        var table = entityType.getJavaType().getAnnotation(Table.class);
         return table == null ? entityType.getName() : table.name();
     }
 
-    public void executeInTx(Consumer<EntityManager> consumer) {
-        executeInTx((em) -> {
-            consumer.accept(em);
-            return null;
-        });
-    }
 
     public void setUnitName(String unitName) {
         this.unitName = unitName;

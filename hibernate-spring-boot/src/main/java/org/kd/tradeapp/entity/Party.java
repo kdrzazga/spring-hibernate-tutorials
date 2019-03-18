@@ -19,7 +19,7 @@ public class Party{
     private String name;
     private String shortname;
 
-    Party(){
+    public Party(){
     }
 
     public Party(String name, String shortname){

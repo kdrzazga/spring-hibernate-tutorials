@@ -22,6 +22,7 @@ public class FundDaoService {
     @Transactional
     public long insert(Fund fund) {
         entityManager.persist(fund);
+        entityManager.flush();
         return fund.getId();
     }
 
