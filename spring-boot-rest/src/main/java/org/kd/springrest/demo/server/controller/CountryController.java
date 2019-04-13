@@ -3,14 +3,17 @@ package org.kd.springrest.demo.server.controller;
 import org.kd.springrest.demo.server.model.Country;
 import org.kd.springrest.demo.server.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-public class CountryController {
+public class CountryController extends Controller{
 
     @Autowired
     private CountryRepository countryRepository;
@@ -24,4 +27,5 @@ public class CountryController {
     public Country getOneCountry(@PathVariable String countryId) {
         return countryRepository.getAll().get(Integer.valueOf(countryId));
     }
+
 }

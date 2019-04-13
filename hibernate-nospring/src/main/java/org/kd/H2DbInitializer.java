@@ -37,7 +37,7 @@ public class H2DbInitializer {
             dbInitScript = dbInitScript.replaceAll("--.*", "");
             dbInitScript = dbInitScript.replaceAll("\r\n", "");
 
-            for (String sqlCommand : Arrays.asList(dbInitScript.split(";"))) {
+            for (String sqlCommand : dbInitScript.split(";")) {
                 stmt.execute(sqlCommand + ";");
             }
             stmt.close();

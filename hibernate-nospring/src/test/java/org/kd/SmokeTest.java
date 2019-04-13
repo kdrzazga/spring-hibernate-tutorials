@@ -22,7 +22,7 @@ public class SmokeTest extends BaseJpaTest{
     public static void classSetUp() throws Exception {
         try {
             DB_SERVER =
-                    Server.createTcpServer(new String[]{ "-baseDir", "./data", "-tcpPort", "9092" });
+                    Server.createTcpServer("-baseDir", "./data", "-tcpPort", "9092");
             DB_SERVER.start();
         } catch (Exception e) {
             if (e.getCause() instanceof BindException) {
