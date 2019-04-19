@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
-public class CountryServiceTest {
+public class IntegralCompControllerServiceTest {
 
     @BeforeClass
     public static void setUp() {
