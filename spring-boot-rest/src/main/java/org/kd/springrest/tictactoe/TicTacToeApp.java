@@ -1,9 +1,12 @@
 package org.kd.springrest.tictactoe;
 
 
+import org.kd.springrest.tictactoe.repository.TicTacToeLoginRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.util.List;
 
 @SpringBootApplication
 public class TicTacToeApp {
@@ -13,10 +16,17 @@ public class TicTacToeApp {
     public static void main(String[] args) {
         context = SpringApplication.run(TicTacToeApp.class, args);
 
-        if (context != null){
-            System.out.println("\n".repeat(5));
-            System.out.println("SERVER STARTED.");
-            System.out.println("NOT IMPLEMENTED YET!!!!");
+        var loginRepo = new TicTacToeLoginRepository();
+
+        if (context != null) {
+            List.of("\n".repeat(3)
+                    , "SERVER STARTED."
+                    , "http://localhost:8083/place/1,1"
+                    , "Credentials:"
+                    , loginRepo.getPlayerO().getUsername() + ", pass"
+                    , loginRepo.getPlayerX().getUsername() + ", pass"
+                    , "IMPLEMENTATION NOT FINISHED YET!!!!")
+                    .forEach(System.out::println);
 
         }
     }

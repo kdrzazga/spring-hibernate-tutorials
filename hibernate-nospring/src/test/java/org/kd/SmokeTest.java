@@ -6,7 +6,7 @@ import org.h2.tools.DeleteDbFiles;
 import org.h2.tools.Server;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.kd.entity.Fund;
+//import org.kd.entity.Fund;
 
 import java.net.BindException;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ import static org.junit.Assert.fail;
 public class SmokeTest extends BaseJpaTest{
 
     private static Server DB_SERVER;
-    private static Fund f;
+    //private static Fund f;
 
     @BeforeClass
     public static void classSetUp() throws Exception {
