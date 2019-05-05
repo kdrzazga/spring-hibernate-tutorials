@@ -1,7 +1,6 @@
 package org.kd.springrest.tictactoe;
 
 
-import org.kd.springrest.demo.server.CountryDemoApplication;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,7 +16,7 @@ public class TicTacToeApp {
         if (context != null){
             System.out.println("\n".repeat(5));
             System.out.println("SERVER STARTED.");
-            System.out.println("");
+            System.out.println("NOT IMPLEMENTED YET!!!!");
 
         }
     }

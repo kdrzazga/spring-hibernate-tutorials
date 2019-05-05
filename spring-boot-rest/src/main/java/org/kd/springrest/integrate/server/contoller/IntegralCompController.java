@@ -11,8 +11,8 @@ public class IntegralCompController {
 
     @GetMapping(path = "/{function}/{minX}/{maxX}")
     public String computeIntegral(@PathVariable("function") String function,
-                             @PathVariable("minX") Double minX,
-                             @PathVariable("maxX") Double maxX)
+                                  @PathVariable("minX") Double minX,
+                                  @PathVariable("maxX") Double maxX)
             throws WrongIntegralComputationException {
 
         return String

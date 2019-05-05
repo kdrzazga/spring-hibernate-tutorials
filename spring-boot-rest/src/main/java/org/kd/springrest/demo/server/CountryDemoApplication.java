@@ -4,6 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.List;
+
 @SpringBootApplication
 public class CountryDemoApplication {
 
@@ -12,15 +14,16 @@ public class CountryDemoApplication {
     public static void main(String[] args) {
         context = SpringApplication.run(CountryDemoApplication.class, args);
 
-        if (context != null){
-            System.out.println("SERVER STARTED.");
-            System.out.println("Example requests:");
-            System.out.println("http://localhost:8083/countries");
-            System.out.println("http://localhost:8083/country/0");
-            System.out.println("http://localhost:8083/country/1");
-            System.out.println("http://localhost:8083/country/2");
-            System.out.println();
-            System.out.println("http://localhost:8083/response-entity-builder-with-http-headers");
+        if (context != null) {
+            List.of("SERVER STARTED."
+                    , "Example requests:"
+                    , "http://localhost:8083/countries"
+                    , "http://localhost:8083/country/0"
+                    , "http://localhost:8083/country/1"
+                    , "http://localhost:8083/country/2"
+                    , "\n"
+                    , "http://localhost:8083/response-entity-builder-with-http-headers")
+                    .forEach(System.out::println);
         }
     }
 

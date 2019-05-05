@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TttControler {
 
     @GetMapping(path = "/{x},{y}")
-    public String computeIntegral(@PathVariable("x") Character x,
+    public String checkTttField(@PathVariable("x") Character x,
                                   @PathVariable("y") Character y) {
 
         return "(" + x + ", " + y + ")";
