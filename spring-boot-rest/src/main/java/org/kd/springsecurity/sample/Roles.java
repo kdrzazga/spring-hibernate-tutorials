@@ -1,4 +1,4 @@
-package springsecurity.sample;
+package org.kd.springsecurity.sample;
 
 public enum Roles {
 

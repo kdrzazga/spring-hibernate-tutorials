@@ -1,8 +1,8 @@
-package springsecurity.sample.repository;
+package org.kd.springsecurity.sample.repository;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import springsecurity.sample.Roles;
+import org.kd.springsecurity.sample.Roles;
 
 public class LoginRepository {
 

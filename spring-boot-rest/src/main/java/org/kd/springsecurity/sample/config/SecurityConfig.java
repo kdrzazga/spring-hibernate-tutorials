@@ -1,5 +1,7 @@
-package springsecurity.sample.config;
+package org.kd.springsecurity.sample.config;
 
+import org.kd.springsecurity.sample.Roles;
+import org.kd.springsecurity.sample.repository.LoginRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -7,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import springsecurity.sample.Roles;
-import springsecurity.sample.repository.LoginRepository;
 
 @Configuration
 class SecurityConfig extends WebSecurityConfigurerAdapter {

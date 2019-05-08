@@ -2,7 +2,6 @@ package org.kd.springrest.tictactoe.repository;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import springsecurity.sample.Roles;
 
 public class TicTacToeLoginRepository {
 

@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import springsecurity.sample.config.HtmlPageBuilder;
+import org.kd.common.HtmlPageBuilder;
 
 import java.net.URI;
 import java.net.URISyntaxException;

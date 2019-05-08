@@ -9,11 +9,10 @@
         <module>hibernate-spring-boot</module>
         <module>spring</module>
         <module>spring-boot-rest</module>
+        <module>NileRide</module>
     </modules>
 
     <properties>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
         <spring.version>5.1.1.RELEASE</spring.version>
         <aspectj.version>1.9.2</aspectj.version>
         <javax.inject.version>1</javax.inject.version>

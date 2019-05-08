@@ -1,4 +1,4 @@
-package springsecurity.sample.config;
+package org.kd.common;
 
 import java.util.List;
 import java.util.Vector;
@@ -34,7 +34,7 @@ public class HtmlPageBuilder {
 
             tableParagraph.append("<tr style='border: 1px solid black;'>");
             for (int col = 0; col < content[0].length; col++) {
-                tableParagraph.append("<td>").append(chars[col]).append(".</td>");
+                tableParagraph.append("<td style='border: 1px solid black;'>").append(chars[col]).append(".</td>");
             }
             tableParagraph.append("</tr>");
         }
