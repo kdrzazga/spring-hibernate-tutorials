@@ -2,6 +2,8 @@ package org.kd.spring.knights;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.List;
+
 public class KnightMain {
     public static void main(String[] args) {
 
@@ -10,6 +12,9 @@ public class KnightMain {
         var context = new AnnotationConfigApplicationContext(KnightConfig.class);
         var knight = context.getBean("knight", Knight.class);
         knight.embarkOnQuest();
+
+        List<Knight> knights = context.getBean(List.class);
+        knights.forEach(warrior -> System.out.println(warrior.getClass()));
         context.close();
     }
 }

@@ -5,9 +5,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.kd.config.GameConfig;
 import org.kd.model.Game;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class GameLauncher extends Application {
+
+    @Value("appName:Nile Ride")
+    private String appName;
 
     private AnnotationConfigApplicationContext springContext;
 
@@ -22,12 +26,14 @@ public class GameLauncher extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Anim");
+        primaryStage.setTitle(appName);
         primaryStage.setScene(springContext.getBean(Scene.class));
         primaryStage.setOnCloseRequest(event -> exit());
+        primaryStage.setResizable(false);
+        primaryStage.setMaximized(false);
         primaryStage.show();
 
-        Game game = springContext.getBean(Game.class);
+        var game = springContext.getBean(Game.class);
         game.start();
     }
 
