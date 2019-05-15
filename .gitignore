@@ -1,8 +1,10 @@
 *.class
 *.xml
 !pom.xml
+!*ontext.xml
+!*persistence.xml
 *.iml
 target*
 .idea*
 *.ods
-
+activemq-data/*

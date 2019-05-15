@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.kd.springrest.integrate.server.model.IntegralComputing;
-import org.kd.springrest.integrate.server.model.WrongIntegralComputationException;
+import org.kd.springboot.springrest.integrate.server.model.IntegralComputing;
+import org.kd.springboot.springrest.integrate.server.model.WrongIntegralComputationException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;

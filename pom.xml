@@ -9,7 +9,7 @@
         <module>hibernate-spring-boot</module>
         <module>spring</module>
         <module>spring-boot-rest</module>
-        <module>NileRide</module>
+        <module>nile-ride</module>
     </modules>
 
     <properties>
@@ -35,7 +35,7 @@
 
     <groupId>org.kd</groupId>
     <artifactId>spring-hibernate-tutorials</artifactId>
-    <version>0.6.1-SNAPSHOT</version>
+    <version>0.7.0-SNAPSHOT</version>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
