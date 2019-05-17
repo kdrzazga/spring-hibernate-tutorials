@@ -4,7 +4,6 @@ public class Board {
 
     private Vehicle vehicle;
     private Vehicle enemy;
-
     private Track track;
     private BoardKeyListener boardKeyListener;
 
@@ -22,8 +21,6 @@ public class Board {
     }
 
     public boolean checkCollision(){
-        System.out.println("" + this.track.getLeftBank().get(0) + "   " + this.vehicle.getX() + "   " + this.track.getRightBank().get(0));
-
         return track.getLeftBank().get(0) > vehicle.getX() - vehicle.getWIDTH()/2
                 || track.getRightBank().get(0) < vehicle.getX() + vehicle.getWIDTH()/2;
     }

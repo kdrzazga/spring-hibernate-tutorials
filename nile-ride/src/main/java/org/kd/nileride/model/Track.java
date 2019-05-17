@@ -1,11 +1,15 @@
 package org.kd.nileride.model;
 
 import org.kd.nileride.common.CyclicList;
+import org.kd.nileride.config.GameConfig;
+import org.springframework.context.annotation.Import;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.IntStream;
 
+@Import(GameConfig.class)
 public class Track {
 
     //both banks of the river expressed in percentage of screen width
@@ -22,7 +26,7 @@ public class Track {
         rightBank.addAll(rightBankData);
     }
 
-    public void move(int speed) {
+    void move(int speed) {
         leftBank.shiftRight(speed);
         rightBank.shiftRight(speed);
     }
@@ -32,19 +36,8 @@ public class Track {
      * returns true if success
      */
     public boolean moveBanks(int percent) {
-        var iterator = leftBank.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next() + percent < 0
-                    || (iterator.next() + percent > Board.WIDTH))
-                return false;
-        }
-
-        iterator = rightBank.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next() + percent < 0
-                    || (iterator.next() + percent > Board.WIDTH))
-                return false;
-        }
+        if (!moveBank(percent, leftBank.iterator())) return false;
+        if (!moveBank(percent, rightBank.iterator())) return false;
 
         IntStream.range(0, leftBank.size())
                 .forEach(i -> leftBank.set(i, leftBank.get(i) + percent));
@@ -52,6 +45,15 @@ public class Track {
         IntStream.range(0, rightBank.size())
                 .forEach(i -> rightBank.set(i, rightBank.get(i) + percent));
 
+        return true;
+    }
+
+    private boolean moveBank(int percent, Iterator<Integer> iterator) {
+        while (iterator.hasNext()) {
+            if (iterator.next() + percent < 0
+                    || (iterator.next() + percent > Board.WIDTH))
+                return false;
+        }
         return true;
     }
 

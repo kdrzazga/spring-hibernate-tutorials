@@ -13,23 +13,21 @@ public class BoardKeyListener implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent event) {
-        //System.out.println(event.getCode().getName());
         switch (event.getCode()) {
             case UP:
                 board.getVehicle().slowDown();
                 break;
+
             case DOWN:
                 board.getVehicle().accelerate();
-                //System.out.println("down");
                 break;
+
             case LEFT:
-                if (board.getTrack().moveBanks(1))
-                    System.out.println(
-                            board.getTrack().getLeftBank().get(0));
+                board.getTrack().moveBanks(1);
                 break;
+
             case RIGHT:
-                if (board.getTrack().moveBanks(-1))
-                    ;//System.out.println("RIGHT");
+                board.getTrack().moveBanks(-1);
                 break;
         }
     }

@@ -29,7 +29,7 @@ public class CyclicList<T> extends ArrayList<T> {
     }
 
     public void shiftLeft() {
-        T stash = (T) new Object();
+        T stash;
         stash = get(0);
 
         IntStream.range(1, size()).forEach(i -> this.set(i - 1, this.get(i)));
@@ -37,7 +37,7 @@ public class CyclicList<T> extends ArrayList<T> {
     }
 
     public void shiftRight() {
-        var stash = (T) new Object();
+        T stash;
         stash = get(capacity - 1);
 
         IntStream.range(0, size() - 1)

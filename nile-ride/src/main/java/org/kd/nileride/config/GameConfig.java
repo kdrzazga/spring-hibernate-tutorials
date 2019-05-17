@@ -8,11 +8,30 @@ import org.kd.nileride.model.BoardKeyListener;
 import org.kd.nileride.model.Game;
 import org.kd.nileride.model.Vehicle;
 import org.kd.nileride.view.Drawer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource(value = "classpath:application.properties")
 public class GameConfig {
+
+    @Value("${application.name}")
+    private String appName;
+
+    @Value("${message.crash}")
+    private String crash;
+
+    @Bean
+    public String crash() {
+        return crash;
+    }
+
+    @Bean
+    public String appName() {
+        return appName;
+    }
 
     @Bean
     public Canvas canvas() {

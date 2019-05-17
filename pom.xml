@@ -13,7 +13,7 @@
     </modules>
 
     <properties>
-        <spring.version>5.1.1.RELEASE</spring.version>
+        <spring.version>5.1.5.RELEASE</spring.version>
         <aspectj.version>1.9.2</aspectj.version>
         <javax.inject.version>1</javax.inject.version>
 

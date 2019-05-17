@@ -5,13 +5,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.kd.nileride.config.GameConfig;
 import org.kd.nileride.model.Game;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class GameLauncher extends Application {
-
-    @Value("appName:Nile Ride")
-    private String appName;
 
     private AnnotationConfigApplicationContext springContext;
 
@@ -26,7 +22,7 @@ public class GameLauncher extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle(appName);
+        primaryStage.setTitle(springContext.getBean("appName", String.class));
         primaryStage.setScene(springContext.getBean(Scene.class));
         primaryStage.setOnCloseRequest(event -> exit());
         primaryStage.setResizable(false);
@@ -42,7 +38,7 @@ public class GameLauncher extends Application {
         springContext.stop();
     }
 
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 }
