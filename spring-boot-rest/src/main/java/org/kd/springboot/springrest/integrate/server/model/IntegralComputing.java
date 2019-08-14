@@ -29,8 +29,9 @@ public class IntegralComputing {
             double finalValue = 0.0;
 
             for (double x = minX; x < maxX; x += step) {
-                var value = (Double) method.get().invoke(null, new Double[]{x});
-                finalValue += step * value;
+                var value1 = (Double) method.get().invoke(null, new Double[]{x});
+                var value2 = (Double) method.get().invoke(null, new Double[]{x});
+                finalValue += step * value1 + step * (value2 - value1) / 2;
             }
 
             return finalValue;

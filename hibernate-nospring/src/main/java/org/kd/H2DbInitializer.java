@@ -1,14 +1,12 @@
 package org.kd;
 
 import org.h2.tools.DeleteDbFiles;
-import org.h2.tools.Server;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class H2DbInitializer {

@@ -1,7 +1,6 @@
 package org.kd.tradeapp.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "TRD_funds")

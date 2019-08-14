@@ -1,12 +1,9 @@
 package org.kd;
 
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
+
+import javax.jms.Destination;
 
 public class SpringJmsProducer {
     private JmsTemplate jmsTemplate;
@@ -34,10 +31,6 @@ public class SpringJmsProducer {
     }
 
     private MessageCreator createMessageCreator(final String msg) {
-        return new MessageCreator() {
-            public Message createMessage(Session session) throws JMSException {
-                return session.createTextMessage(msg);
-            }
-        };
+        return session -> session.createTextMessage(msg);
     }
 }

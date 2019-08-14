@@ -1,17 +1,14 @@
 package org.kd;
 
-import org.h2.Driver;
-import org.h2.store.fs.FileUtils;
-import org.h2.tools.DeleteDbFiles;
 import org.h2.tools.Server;
 import org.junit.BeforeClass;
 import org.junit.Test;
-//import org.kd.entity.Fund;
 
 import java.net.BindException;
-import java.sql.SQLException;
 
 import static org.junit.Assert.fail;
+
+//import org.kd.entity.Fund;
 
 public class SmokeTest extends BaseJpaTest{
 

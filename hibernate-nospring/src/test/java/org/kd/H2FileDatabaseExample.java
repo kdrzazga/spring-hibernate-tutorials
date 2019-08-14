@@ -5,12 +5,8 @@ import org.junit.Test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 
 public class H2FileDatabaseExample {
 
@@ -27,7 +23,7 @@ public class H2FileDatabaseExample {
 
     private void readDb(Connection dbConnection) throws SQLException {
 
-        try {
+        try (dbConnection) {
             var stmt = dbConnection.createStatement();
             ResultSet rs = stmt.executeQuery("select * from TRD_funds;");
 
@@ -42,8 +38,6 @@ public class H2FileDatabaseExample {
         } catch (Exception e) {
             System.out.println("Exception Message " + e.getLocalizedMessage());
 
-        } finally {
-            dbConnection.close();
         }
     }
 }

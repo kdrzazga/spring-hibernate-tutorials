@@ -52,7 +52,7 @@ public class CountryHttpClientTest {
     @ParameterizedTest
     @ValueSource(strings = {"Poland", "Germany", "Chad"})
     public void testSingleCountryEndpointGetCountryName(String country) {
-        var response = new CountryHttpClient().request("/country/" + String.valueOf(countryCounter));
+        var response = new CountryHttpClient().request("/country/" + countryCounter);
 
         assertNotNull(response);
         assertThat(response.body(), containsString(country));
@@ -71,7 +71,7 @@ public class CountryHttpClientTest {
     @ParameterizedTest
     @ValueSource(strings = {"Warszawa", "Berlin", "Njamena"})
     public void testSingleCountryEndpointGetCountryCapital(String capital) {
-        var endpoint = "/country/" + String.valueOf(countryCounter);
+        var endpoint = "/country/" + countryCounter;
         var response = new CountryHttpClient().request(endpoint);
 
         assertNotNull(response);

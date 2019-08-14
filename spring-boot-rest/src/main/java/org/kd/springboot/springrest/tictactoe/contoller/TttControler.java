@@ -1,20 +1,20 @@
 package org.kd.springboot.springrest.tictactoe.contoller;
 
+import org.kd.springboot.HtmlPageBuilder;
+import org.kd.springboot.springrest.demo.client.CommonUtility;
+import org.kd.springboot.springrest.demo.server.config.RestTemplateConfig;
 import org.kd.springboot.springrest.tictactoe.model.TicTacToeLogic;
 import org.kd.springboot.springrest.tictactoe.model.TicTacToeMove;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import org.kd.springboot.HtmlPageBuilder;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 @RestController
+@Import(RestTemplateConfig.class)
 public class TttControler {
 
     //@Value("server.port")
@@ -22,6 +22,9 @@ public class TttControler {
 
     //@Value("server.url")
     private String url = "http://localhost:8083/";
+
+    @Autowired
+    private CommonUtility commonUtility;
 
     private TicTacToeLogic logic = new TicTacToeLogic();
 
@@ -43,28 +46,29 @@ public class TttControler {
     }
 
     @PostMapping(path = "/sendMove")
-    public TicTacToeTable acceptMove(@RequestBody TicTacToeMove move) {
+    public ResponseEntity<TicTacToeTable> acceptMove(@RequestBody TicTacToeMove move) {
 
         int row = Integer.parseInt(move.getX());
         int col = Integer.parseInt(move.getY());
+        String player = move.getUserName().substring(move.getUserName().length() - 1);
 
-        logic.getTable().putX(row, col);
-        return logic.getTable();
+        if (player.endsWith("x")) {
+            logic.getTable().putX(row, col);
+        } else {
+            logic.getTable().putO(row, col);
+        }
+
+        return ResponseEntity.ok()
+                .body(logic.getTable());
     }
 
     private void sendMoveToServer(Character x, Character y, String userName) {
-        var restTemplate = new RestTemplate();
-        var headers = new HttpHeaders();
-
-        headers.setContentType(MediaType.TEXT_PLAIN);
         try {
-            RequestEntity<TicTacToeMove> moveRequest = RequestEntity.post(new URI(this.url + "sendMove"))
-                    .accept(MediaType.APPLICATION_JSON)
-                    .body(new TicTacToeMove(x.toString(), y.toString(), userName));
+            var requestAsString = "{\"x\":\"" + x + "\", \"y\":\"" + y + "\", \"move\":\"" + userName + "\"}";
 
-            restTemplate.exchange(moveRequest, TicTacToeTable.class);
+            var response = commonUtility.processHttpRequest(HttpMethod.POST, requestAsString, this.url + "sendMove", "application/json");
 
-        } catch (HttpClientErrorException | URISyntaxException e) {
+        } catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
 

@@ -1,15 +1,6 @@
 package org.kd.tradeapp.service;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.kd.tradeapp.entity.LegalEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 @Repository
 public class LegalEntityService {

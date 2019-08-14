@@ -1,17 +1,22 @@
 package org.kd.springboot.springrest.demo.server.controller;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -63,12 +68,29 @@ public class Controller {//extended by CountryController
         }
     }
 
+
+    @PutMapping("/file")
+    public ResponseEntity<BasicFileAttributes> updateArticle(@RequestBody BasicFileAttributes fileInfo) {
+        Path file = Paths.get("output.txt");
+        BeanUtils.copyProperties(fileInfo, file);
+
+        try {
+            BasicFileAttributes attrs = Files.readAttributes(file, BasicFileAttributes.class);
+            BeanUtils.copyProperties(file, attrs);
+            return new ResponseEntity<>(attrs, HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     private boolean validateRequest(HttpServletRequest request) {
         var params = Collections.list(request.getParameterNames());
         if (params.size() != 1) {
             return false;
         } else {
-            return params.get(0).equals("word");
+            return "word".equals(params.get(0));
         }
     }
 

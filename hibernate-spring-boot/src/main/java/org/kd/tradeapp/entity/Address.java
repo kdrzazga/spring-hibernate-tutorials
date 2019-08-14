@@ -1,9 +1,5 @@
 package org.kd.tradeapp.entity;
 
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 /*@Embeddable
 @Entity
 @Table(name = "TRD_address")*/
