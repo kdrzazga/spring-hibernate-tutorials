@@ -11,8 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = {ManyTo1Application.class})
@@ -28,17 +26,22 @@ public class PostTests {
         var newPosts = new DataFactory().createNewPosts();
         postDaoService.addToDatabase(newPosts);
 
-        assertTrue(postDaoService.getAllPosts().containsAll(newPosts));
-        //fail("implement not finished");//TODO finish this
-        //
+        var allPostsTitles = postDaoService.getAllPosts().stream().map(Post::getTitle).collect(Collectors.toList());
+
+        newPosts.forEach(
+                post -> assertTrue(allPostsTitles.contains(post.getTitle()))
+        );
     }
+
     @Test
     public void testReadingPostCommentsFromDb() {
+        var newPosts = new DataFactory().createNewPosts();
+        postDaoService.addToDatabase(newPosts);
 
-        var newPosts = new DataFactory().createNewPostComments();
-       // postDaoService.addToDatabase(newPosts);
-        var allCommentsFromDb = postDaoService.getAllPosts().stream().map(Post::getComments).collect(Collectors.toList());
+        var allPostComments = postDaoService.getAllPosts().stream().map(Post::getComments).collect(Collectors.toList());
 
-        assertThat(allCommentsFromDb, hasItems(newPosts));
+        newPosts.forEach(
+                post -> assertTrue(allPostComments.containsAll(post.getComments()))
+        );
     }
 }

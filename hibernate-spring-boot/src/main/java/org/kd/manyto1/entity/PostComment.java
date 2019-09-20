@@ -14,7 +14,7 @@ public class PostComment {
     private String review;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id")// this means post_id in table indicated by Post entity is a FK
     private Post post;
 
     private PostComment(){}

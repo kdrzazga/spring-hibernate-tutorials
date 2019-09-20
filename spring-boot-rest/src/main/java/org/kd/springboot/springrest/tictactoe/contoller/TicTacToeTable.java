@@ -15,6 +15,10 @@ public class TicTacToeTable {
         table[row][col] = 'o';
     }
 
+    public boolean isCellAvailable(int row, int col) {
+        return (row < table[0].length && row < table.length) && (table[row][col] == ' ' || table[row][col] == ' ');
+    }
+
     char[][] getContent(){
         return table;
     }

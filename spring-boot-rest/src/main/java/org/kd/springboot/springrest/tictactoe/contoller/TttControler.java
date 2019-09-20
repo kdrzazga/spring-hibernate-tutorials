@@ -52,11 +52,12 @@ public class TttControler {
         int col = Integer.parseInt(move.getY());
         String player = move.getUserName().substring(move.getUserName().length() - 1);
 
-        if (player.endsWith("x")) {
-            logic.getTable().putX(row, col);
-        } else {
-            logic.getTable().putO(row, col);
-        }
+        if (logic.getTable().isCellAvailable(row, col))
+            if (player.endsWith("x")) {
+                logic.getTable().putX(row, col);
+            } else {
+                logic.getTable().putO(row, col);
+            }
 
         return ResponseEntity.ok()
                 .body(logic.getTable());
@@ -64,7 +65,7 @@ public class TttControler {
 
     private void sendMoveToServer(Character x, Character y, String userName) {
         try {
-            var requestAsString = "{\"x\":\"" + x + "\", \"y\":\"" + y + "\", \"move\":\"" + userName + "\"}";
+            var requestAsString = "{\"x\":\"" + x + "\", \"y\":\"" + y + "\", \"userName\":\"" + userName + "\"}";
 
             var response = commonUtility.processHttpRequest(HttpMethod.POST, requestAsString, this.url + "sendMove", "application/json");
 

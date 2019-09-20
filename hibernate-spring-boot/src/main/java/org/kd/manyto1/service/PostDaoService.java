@@ -18,17 +18,20 @@ public class PostDaoService {
     @PersistenceContext
     private EntityManager entityManager;
 
-   @Transactional
+    @Transactional
     public void addToDatabase(List<Post> posts) {
 
-       posts.forEach(post -> {
-           entityManager.persist(post);
-                   post.getComments()
-                           .forEach(comment -> entityManager.persist(comment));
+        posts.forEach(post -> {
+            entityManager.persist(post);
+            post.getComments()
+                    .forEach(comment -> {
+                        entityManager.persist(comment);
 
-       });
+                    });
+            entityManager.flush();
+        });
 
-        entityManager.flush();
+
     }
 
     @Transactional
