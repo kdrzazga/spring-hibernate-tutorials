@@ -1,27 +1,22 @@
 package org.kd;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import static junit.framework.TestCase.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class H2FileDatabaseExample {
 
     @Test
     public void testH2InitializationWithJdbc() {
 
-        try {
-            Connection dbConnection = new H2DbInitializer().createDatabase();
-            readDb(dbConnection);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Connection dbConnection = new H2DbInitializer().createDatabase();
+        readDb(dbConnection);
     }
 
-    private void readDb(Connection dbConnection) throws SQLException {
+    private void readDb(Connection dbConnection) {
 
         try (dbConnection) {
             var stmt = dbConnection.createStatement();

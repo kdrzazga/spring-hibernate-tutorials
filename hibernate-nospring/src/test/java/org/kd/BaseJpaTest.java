@@ -1,12 +1,12 @@
 package org.kd;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 public class BaseJpaTest {
 
     protected final EntityManagerTemplate template = new EntityManagerTemplate();
 
-    @Before
+    @BeforeEach
     public void cleanDb() {
         template.cleanDb();
     }

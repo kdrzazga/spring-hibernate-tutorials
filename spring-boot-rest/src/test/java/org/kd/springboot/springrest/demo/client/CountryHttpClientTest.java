@@ -1,9 +1,9 @@
 package org.kd.springboot.springrest.demo.client;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.kd.springboot.springrest.demo.server.CountryDemoApplication;
@@ -11,21 +11,21 @@ import org.springframework.http.HttpStatus;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.StringContains.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CountryHttpClientTest {
 
     private static byte countryCounter;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         CountryDemoApplication.main(new String[0]);
     }
 
-    @Before
-    public void resetCountryCounter() {
-        countryCounter = 0;
+    @AfterAll
+    public static void tearDown() {
+        CountryDemoApplication.getContext().stop();
     }
 
     @Test
@@ -79,8 +79,8 @@ public class CountryHttpClientTest {
         countryCounter++;
     }
 
-    @AfterClass
-    public static void tearDown() {
-        CountryDemoApplication.getContext().stop();
+    @BeforeEach
+    public void resetCountryCounter() {
+        countryCounter = 0;
     }
 }

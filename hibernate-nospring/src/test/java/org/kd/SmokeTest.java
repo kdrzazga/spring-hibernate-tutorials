@@ -1,21 +1,20 @@
 package org.kd;
 
 import org.h2.tools.Server;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 import java.net.BindException;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
-//import org.kd.entity.Fund;
-
-public class SmokeTest extends BaseJpaTest{
+public class SmokeTest extends BaseJpaTest {
 
     private static Server DB_SERVER;
     //private static Fund f;
 
-    @BeforeClass
+    @BeforeAll
     public static void classSetUp() throws Exception {
         try {
             DB_SERVER =
@@ -31,9 +30,9 @@ public class SmokeTest extends BaseJpaTest{
         }
     }
 
-
     @Test
-    public void test(){
+    @Disabled
+    public void test() {
         fail("NOT IMPLEMENTED YET");
     }
 }

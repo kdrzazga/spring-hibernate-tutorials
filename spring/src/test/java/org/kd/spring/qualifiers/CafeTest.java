@@ -1,29 +1,29 @@
 package org.kd.spring.qualifiers;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.inject.Inject;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes= QualifiersConfig.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = QualifiersConfig.class)
 public class CafeTest {
     @Inject
     private Cafe cafe;
 
     @Test
-    public void cafeShouldNotBeNull(){
+    public void cafeShouldNotBeNull() {
         assertNotNull(cafe);
     }
 
     @Test
-    public void dessertShouldBeIceCream(){
+    public void dessertShouldBeIceCream() {
         assertThat(cafe.getDessert(), instanceOf(IceCream.class));
     }
 }

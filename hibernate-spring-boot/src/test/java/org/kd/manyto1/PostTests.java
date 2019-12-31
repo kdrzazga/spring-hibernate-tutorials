@@ -1,20 +1,20 @@
 package org.kd.manyto1;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kd.manyto1.entity.Post;
 import org.kd.manyto1.service.DataFactory;
 import org.kd.manyto1.service.PostDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest(classes = {ManyTo1Application.class})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class PostTests {
 
     @Autowired

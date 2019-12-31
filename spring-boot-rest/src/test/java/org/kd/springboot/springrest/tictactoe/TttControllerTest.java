@@ -1,20 +1,22 @@
 package org.kd.springboot.springrest.tictactoe;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kd.springboot.springrest.demo.client.CommonUtility;
 import org.kd.springboot.springrest.demo.client.RestTemplateClientTest;
 import org.kd.springboot.springrest.demo.server.config.RestTemplateConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Import(RestTemplateConfig.class)
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
 public class TttControllerTest {
     Logger log = LoggerFactory.getLogger(RestTemplateClientTest.class);
     private String serviceAddress = "http://localhost:8083";
@@ -28,7 +30,6 @@ public class TttControllerTest {
 
     @Test
     public void testEndpointSendMove(){
-        //Assert.fail("Not implemented yet");
         requestType = HttpMethod.valueOf("POST");
         requestUrl = serviceAddress.concat("/sendMove");
         requestAsString = "{\"x\":\"1\", \"y\":\"1\", \"move\":\"O\"}";
@@ -36,7 +37,7 @@ public class TttControllerTest {
         ResponseEntity<String> response = commonUtility.processHttpRequest(requestType, requestAsString, requestUrl, "application/json");
         retrieveResponseBodyAndStatusCode(response);
 
-        Assert.assertEquals("200", responseStatusCode);
+        assertEquals("200", responseStatusCode);
     }
 
     private void retrieveResponseBodyAndStatusCode(ResponseEntity<String> response) {

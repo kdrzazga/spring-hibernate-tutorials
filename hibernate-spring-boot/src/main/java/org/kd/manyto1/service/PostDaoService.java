@@ -24,10 +24,7 @@ public class PostDaoService {
         posts.forEach(post -> {
             entityManager.persist(post);
             post.getComments()
-                    .forEach(comment -> {
-                        entityManager.persist(comment);
-
-                    });
+                    .forEach(comment -> entityManager.persist(comment));
             entityManager.flush();
         });
 

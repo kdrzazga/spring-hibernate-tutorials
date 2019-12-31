@@ -15,7 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 @RestController
 @Import(RestTemplateConfig.class)
-public class TttControler {
+public class TttController {
 
     //@Value("server.port")
     private String port = "8083";

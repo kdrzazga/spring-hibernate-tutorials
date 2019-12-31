@@ -21,7 +21,7 @@ public class EntityManagerTemplate {
 
     public EntityManager createEntityManager() {
         if (emFactorySingleton == null) {
-            emFactorySingleton = Persistence.createEntityManagerFactory(unitName);//set up Hb, quite time conuming, but not as much as Spring
+            emFactorySingleton = Persistence.createEntityManagerFactory(unitName);//set up Hb, quite time consuming, but not as much as Spring
         }
         getStatistics().setStatisticsEnabled(true);
         return emFactorySingleton.createEntityManager();
@@ -45,7 +45,7 @@ public class EntityManagerTemplate {
         return em;
     }
 
-    //Impreative transactions management (imerative -> usinmg commands). Spring uses declarative management (with @-style declarations)
+    //Impreative transactions management (imperative -> using commands). Spring uses declarative management (with @-style declarations)
     // and has something similar buried inside
     public <T> T executeInTx(Function<EntityManager, T> fun) {
         var em = getEntityManager();

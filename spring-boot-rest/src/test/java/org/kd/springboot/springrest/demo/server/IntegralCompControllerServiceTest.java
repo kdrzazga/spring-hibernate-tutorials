@@ -1,7 +1,7 @@
 package org.kd.springboot.springrest.demo.server;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.kd.springboot.springrest.demo.server.model.Country;
 import org.kd.springboot.springrest.demo.server.service.CountryService;
 
@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegralCompControllerServiceTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         CountryDemoApplication.main(new String[0]);
     }

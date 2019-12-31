@@ -33,8 +33,7 @@ public class CommonUtility {
     private HttpEntity<String> createRequestEntity(String request, String contentType) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.valueOf(contentType));
-        HttpEntity<String> entity = new HttpEntity<>(request, httpHeaders);
-        return entity;
+        return new HttpEntity<>(request, httpHeaders);
     }
 
     public String getErrorResponseStatusCode() {

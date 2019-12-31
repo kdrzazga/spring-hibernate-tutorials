@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-class ReqestMgmt {
+class RequestMgmt {
 
     @GetMapping("/hello")
     public ResponseEntity<String> getQuotation() {

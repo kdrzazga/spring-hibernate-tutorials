@@ -1,22 +1,22 @@
 package org.kd.concert;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kd.spring.aspects.concert.AspectConcertConfig;
 import org.kd.spring.aspects.concert.Performance;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AspectConcertConfig.class)
+@SpringBootTest(classes = {AspectConcertConfig.class})
+@ExtendWith(SpringExtension.class)
 public class AudienceTest {
 
     @Autowired
     Performance testPerformance;
 
     @Test
-    public void testPerformaceCall() {
+    public void testPerformanceCall() {
         testPerformance.perform();
     }
 }

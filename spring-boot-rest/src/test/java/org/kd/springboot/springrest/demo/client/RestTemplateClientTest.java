@@ -1,22 +1,16 @@
 package org.kd.springboot.springrest.demo.client;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.kd.springboot.springrest.demo.client.config.RestTemplateConfig;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = RestTemplateConfig.class)
-
+@SpringBootTest
 public class RestTemplateClientTest {
 
     private String serviceAddress = "http://localhost:8083";
@@ -44,9 +38,9 @@ public class RestTemplateClientTest {
         ResponseEntity<String> response = commonUtility.processHttpRequest(requestType, requestAsString, requestUrl, "application/json");
         retrieveResponseBodyAndStatusCode(response);
 
-        Assert.assertEquals("200", responseStatusCode);
-        Assert.assertTrue(responseBody.contains("Poland"));
-        Assert.assertTrue(responseBody.contains("Germany"));
+        assertEquals("200", responseStatusCode);
+        assertTrue(responseBody.contains("Poland"));
+        assertTrue(responseBody.contains("Germany"));
     }
 
     private void retrieveResponseBodyAndStatusCode(ResponseEntity<String> response) {

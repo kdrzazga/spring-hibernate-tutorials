@@ -1,4 +1,5 @@
 --Script automatically executed on startup by Hibernate
+--revision 1
 DROP TABLE IF EXISTS TRD_parties;
 DROP TABLE IF EXISTS TRD_funds;
 DROP TABLE IF EXISTS TRD_transact;
@@ -338,3 +339,20 @@ INSERT INTO post_comment(review, post_id) VALUES ('Good article', 11);
 INSERT INTO post_comment(review, post_id) VALUES ('I strongly disagree with the article', 10);
 INSERT INTO post_comment(review, post_id) VALUES ('I disagree with the article', 10);
 INSERT INTO post_comment(review, post_id) VALUES ('This article is a piece of sh..', 11);
+
+--revision 2
+
+create table item(
+   id int not null primary key auto_increment,
+   name varchar(20)
+);
+
+create table image(
+    image_id int not null primary key,
+    item_id int not null,
+    filename varchar(50),
+
+    foreign key (item_id) references item(id)
+);
+
+

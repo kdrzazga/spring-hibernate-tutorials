@@ -1,19 +1,20 @@
 package org.kd;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kd.nileride.config.GameConfig;
 import org.kd.nileride.config.TestGameConfig;
 import org.kd.nileride.model.BoardKeyListener;
 import org.kd.nileride.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Import({GameConfig.class, TestGameConfig.class})
 public class GameTest {
 
@@ -24,9 +25,10 @@ public class GameTest {
     private BoardKeyListener keyListener;
 
     @Test
+    @Disabled
     public void testBoardWithBanksShiftedLeft() {
 
-        Assert.fail("Not finished yet");
+        fail("Not finished yet");
         //game.board.setBoardKeyListener(keyListener);
         game.start();
 
@@ -34,13 +36,12 @@ public class GameTest {
         try {
             //game.board.getBoardKeyListener().handle(KeyEvent);
             Thread.sleep(Game.getGameFrameMs());
-            assertEquals("Please adapt test to new data.", Integer.valueOf(40), game.board.getTrack().getLeftBank().get(0));
+            assertEquals(/*"Please adapt test to new data.", */Integer.valueOf(40), game.board.getTrack().getLeftBank().get(0));
             game.board.getTrack().moveBanks(1);
             assertEquals(Integer.valueOf(41), game.board.getTrack().getLeftBank().get(0));
         } catch (InterruptedException e) {
 
-            Assert.fail(e.getMessage());
-
+            fail(e.getMessage());
         }
 
     }

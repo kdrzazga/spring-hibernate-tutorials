@@ -1,10 +1,12 @@
 package org.kd;
 
+import org.springframework.jms.core.JmsTemplate;
+
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
-
-import org.springframework.jms.core.JmsTemplate;
+import java.util.List;
+import java.util.Vector;
 
 public class SpringJmsConsumer {
     private JmsTemplate jmsTemplate;
@@ -28,6 +30,18 @@ public class SpringJmsConsumer {
 
     public String receiveMessage() throws JMSException {
         TextMessage textMessage = (TextMessage) jmsTemplate.receive(destination);
-        return textMessage.getText();
+        return (textMessage != null) ? textMessage.getText() : "";
+
+    }
+
+    public List<String> receiveAllMessages() throws JMSException {
+        var messages = new Vector<String>();
+        String msg;
+        do {
+            msg = receiveMessage();
+            if (!"".equals(msg)) messages.add(msg);
+        }
+        while (!"".equals(msg));
+        return messages;
     }
 }

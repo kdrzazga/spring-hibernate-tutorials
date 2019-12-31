@@ -1,8 +1,8 @@
 package org.kd.springrest_integrate.server;
 
-import org.junit.Assert;
-import org.junit.Test;
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.kd.springboot.springrest.integrate.server.model.IntegralComputing;
@@ -12,6 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.lessThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class IntegralComputingTest {
 
@@ -29,7 +30,7 @@ public class IntegralComputingTest {
             assertThat(integralValue2, lessThan(Math.PI / 2));
         }
         catch (WrongIntegralComputationException e){
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -48,7 +49,7 @@ public class IntegralComputingTest {
             assertThat(integralValue2, lessThan(11.0));
         }
         catch (WrongIntegralComputationException e){
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 
@@ -60,7 +61,7 @@ public class IntegralComputingTest {
             assertEquals(0, integralValue, 0.01);
         }
         catch (WrongIntegralComputationException e){
-            Assert.fail(e.getMessage());
+            fail(e.getMessage());
         }
     }
 

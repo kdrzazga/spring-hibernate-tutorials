@@ -2,18 +2,18 @@ package org.kd.tradeapp.service;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.kd.tradeapp.TradeApplication;
 import org.kd.tradeapp.entity.Fund;
 import org.kd.tradeapp.entity.Party;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.Assert.*;
 
 @SpringBootTest(classes = {TradeApplication.class})
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 public class FundDaoServiceTest {
 
     @Autowired
