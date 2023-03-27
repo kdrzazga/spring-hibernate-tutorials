@@ -1,6 +1,7 @@
 package org.kd.springboot.springrest.demo.client;
 
 import org.junit.jupiter.api.Test;
+import org.kd.springboot.springrest.demo.server.CountryDemoApplication;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(classes = {CountryDemoApplication.class})
 public class RestTemplateClientTest {
 
     private String serviceAddress = "http://localhost:8083";
